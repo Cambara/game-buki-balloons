@@ -4,8 +4,9 @@ import { scenes } from './scenes/scenes.factory'
 const config = {
   type: Phaser.AUTO,
   scale: {
-    width: window.innerWidth,
-    height: window.innerHeight,
+    width: 800,
+    height: 600,
+    autoCenter: Phaser.Scale.CENTER_BOTH
   },
   scene: scenes,
   physics: {
