@@ -6,6 +6,6 @@ export default class PreloadScene extends Phaser.Scene {
   preload() {}
 
   create() {
-    console.log("oiii");
+    this.scene.start('StartMenuScene')
   }
 }
