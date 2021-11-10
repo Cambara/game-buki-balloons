@@ -15,6 +15,7 @@ export default class TempScene extends Phaser.Scene {
     }
 
     create() {
+        this.scene.run('top-menu')
         createFauneAnim(this.anims)
         this.faune = this.add.faune(50, 50, 'faune');
     }
