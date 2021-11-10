@@ -11,13 +11,13 @@ export default class TopMenuScene extends Phaser.Scene {z
   }
 
   create() {
-    this.add.text(10, 10, 'Buki Level 1', {
-      color: '#FFF',
-      fontSize: '48px',
-      strokeThickness: 8
-    })
-
+    const avatar = this.add.image(750, 50, 'buki_avatar')
+    avatar.scale = 0.4
     sceneEvents.on(sceneEventsEnum.ADD_OR_DESTROY_LETTER, this.addOrDestroyLetter, this)
+
+    if (this.avatarStorage.hasLetter()) {
+      this.addOrDestroyLetter();
+    }
   }
 
   private addOrDestroyLetter() {
@@ -30,7 +30,7 @@ export default class TopMenuScene extends Phaser.Scene {z
       return;
     }
 
-    this.letterIcon = this.add.image(100,100, 'letter-icon')
+    this.letterIcon = this.add.image(685, 30, 'letter-icon')
     this.letterIcon.scale = 0.2
   }
 }
