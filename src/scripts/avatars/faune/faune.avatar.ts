@@ -1,4 +1,6 @@
 import Phaser from 'phaser'
+import { sceneEvents, sceneEventsEnum } from '../../events/main.event'
+import { AvatarStorage } from '../../storage/avatar.storage'
 
 declare global {
   namespace Phaser.GameObjects {
@@ -9,9 +11,11 @@ declare global {
 }
 
 export default class Faune extends Phaser.Physics.Arcade.Sprite {
+  private avatarStorage:AvatarStorage
+
   constructor(scene: Phaser.Scene, x: number, y: number, texture: string, frame?: string | number) {
     super(scene, x, y, texture, frame)
-
+    this.avatarStorage = AvatarStorage.getInstance();
     this.anims.play('faune-idle-down')
   }
 
@@ -25,7 +29,8 @@ export default class Faune extends Phaser.Physics.Arcade.Sprite {
     }
 
     if (Phaser.Input.Keyboard.JustDown(cursors.space!)) {
-        console.log('clicou');
+      this.avatarStorage.addOrRemoveLetter()
+      sceneEvents.emit(sceneEventsEnum.ADD_OR_DESTROY_LETTER)
     }
 
     const speed = 100
