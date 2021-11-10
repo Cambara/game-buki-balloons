@@ -29,6 +29,7 @@ export default class StartMenuScene extends Phaser.Scene {
     mainTitle.setY(middleY - ((mainTitle.height/2) + 80))
 
     const startBtn = new MenuButton(this, middleX, middleY, 'Start game', () => {
+      localStorage.clear()
       this.scene.start('TempScene');
     })
 
