@@ -40,7 +40,7 @@ export default class TempScene extends Phaser.Scene {
             return
         }
 
-        this.txtBox = new TextBoxUI(this, lines, 'buki_avatar')
+        this.txtBox = new TextBoxUI(this, lines, 'ana_avatar')
     }
 
     update() {
