@@ -1,0 +1,2 @@
+
+import './faune/faune.gameobject'
