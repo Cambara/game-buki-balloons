@@ -1,5 +1,6 @@
 import 'phaser'
-import { scenes } from './scenes/scenes.factory'
+import './avatars/avatars.factory'
+import { scenes } from './scenes.factory'
 
 const config = {
   type: Phaser.AUTO,
