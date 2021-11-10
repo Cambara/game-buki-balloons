@@ -1,7 +1,7 @@
 import { sceneEvents, sceneEventsEnum } from "../events/main.event"
 import { AvatarStorage } from "../storage/avatar.storage"
 
-export default class TopMenuScene extends Phaser.Scene {z
+export default class TopMenuScene extends Phaser.Scene {
   private avatarStorage:AvatarStorage
   private letterIcon?:Phaser.GameObjects.Image
   
