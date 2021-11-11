@@ -66,12 +66,20 @@ export default class TempScene extends Phaser.Scene {
 
         anas.get(100, 250, 'ana')
 
-        this.physics.add.collider(this.faune, anas)
+        this.physics.add.collider(this.faune, anas, this.handleAvatarAnaCollision, undefined, this)
 
     }
 
     update() {
         if (this.faune && !this.txtBox) {
+            if (this.faune.hasAnaNPC() && Phaser.Input.Keyboard.JustDown(this.cursors.space!)) {
+                const lines = [
+                    'Buki maria, tu precisa ir atrás de outro balão!!!'
+                ]
+                this.txtBox = new TextBoxUI(this, lines, 'ana_avatar')
+                return
+            }
+
             this.faune.update(this.cursors)
         }
 
@@ -98,5 +106,10 @@ export default class TempScene extends Phaser.Scene {
         ballon.setBlowupSound(this.blowupSound)
         ballon.setLetterNumber(10)
         this.faune.setActiveBalloon(ballon)
+    }
+
+    private handleAvatarAnaCollision(avatar: Phaser.GameObjects.GameObject, anaGameObject: Phaser.GameObjects.GameObject) {
+        const ana = anaGameObject as AnaNPC
+        this.faune.setAnaNPC(ana)
     }
 }

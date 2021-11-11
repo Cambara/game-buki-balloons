@@ -1,5 +1,6 @@
 import Phaser from 'phaser'
 import BallonItem from '../../items/balloon/balloon.item'
+import AnaNPC from '../../npcs/ana/ana.npc'
 import { AvatarStorage } from '../../storage/avatar.storage'
 
 declare global {
@@ -13,6 +14,7 @@ declare global {
 export default class Faune extends Phaser.Physics.Arcade.Sprite {
   private avatarStorage:AvatarStorage
   private activeBalloon?:BallonItem
+  private anaNPC?:AnaNPC
 
   constructor(scene: Phaser.Scene, x: number, y: number, texture: string, frame?: string | number) {
     super(scene, x, y, texture, frame)
@@ -69,11 +71,20 @@ export default class Faune extends Phaser.Physics.Arcade.Sprite {
 
     if (leftDown || rightDown || upDown || downDown) {
       this.activeBalloon = undefined
+      this.anaNPC = undefined
     }
   }
 
   setActiveBalloon(ballon:BallonItem) {
     this.activeBalloon = ballon
+  }
+
+  setAnaNPC(anaNPC:AnaNPC) {
+    this.anaNPC = anaNPC
+  }
+
+  hasAnaNPC(): boolean {
+    return !!this.anaNPC
   }
 
   private destroyActiveBalloon() {
