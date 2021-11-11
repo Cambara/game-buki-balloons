@@ -11,25 +11,19 @@ export class AvatarStorage {
     return this.instace
   }
 
+  putLetter(letter:string) {
+    localStorage.setItem('letter', letter)
+  }
+
+  removeLetter() {
+    localStorage.removeItem('letter')
+  }
+
+  getLetter():string | null {
+    return localStorage.getItem('letter')
+  }
 
   hasLetter():boolean {
-    return !!localStorage.getItem('hasLetter')
-  }
-
-  addOrRemoveLetter() {
-    if (!this.hasLetter()) {
-        this.addLetter()
-        return
-    }
-
-    this.removeLetter()
-  }
-
-  private addLetter() {
-    localStorage.setItem('hasLetter', '1')
-  }
-
-  private removeLetter() {
-    localStorage.removeItem('hasLetter')
+    return !!this.getLetter()
   }
 }

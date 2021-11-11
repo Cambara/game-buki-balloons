@@ -1,11 +1,15 @@
 import { createFauneAnim } from "../avatars/faune/faune.anim";
 import Faune from "../avatars/faune/faune.avatar";
+import { createBallonAnims } from "../items/balloon/balloon.anim";
+import BallonItem from "../items/balloon/balloon.item";
 import TextBoxUI from "../ui/text-box.ui";
 
 export default class TempScene extends Phaser.Scene {
     private cursors!: Phaser.Types.Input.Keyboard.CursorKeys
     private faune!: Faune
     private txtBox?:TextBoxUI
+    private blowupSound: Phaser.Sound.BaseSound
+
     private scriptTexts = [
         ['oi'],
         [
@@ -28,11 +32,16 @@ export default class TempScene extends Phaser.Scene {
 
     preload() {
         this.cursors = this.input.keyboard.createCursorKeys()
+        this.blowupSound = this.sound.add('balloon-blowup', {
+            volume: 100
+        })
     }
 
     create() {
         this.scene.run('top-menu')
         createFauneAnim(this.anims)
+        createBallonAnims(this.anims)
+
         this.faune = this.add.faune(50, 50, 'faune');
         const lines = this.getNextLines()
 
@@ -41,6 +50,15 @@ export default class TempScene extends Phaser.Scene {
         }
 
         this.txtBox = new TextBoxUI(this, lines, 'ana_avatar')
+        
+        const ballons = this.physics.add.staticGroup({
+            classType: BallonItem
+        })
+
+        ballons.get(300, 300, 'balloon')
+        
+        this.physics.add.collider(this.faune, ballons, this.handleAvatarBallonCollision, undefined, this)
+
     }
 
     update() {
@@ -63,5 +81,13 @@ export default class TempScene extends Phaser.Scene {
     private getNextLines():string[] | undefined {
         const scriptTexts = this.scriptTexts.splice(0,1)
         return scriptTexts.length === 1 ? scriptTexts[0] : undefined 
+    }
+
+    private handleAvatarBallonCollision(avatar: Phaser.GameObjects.GameObject, ballonGameObject: Phaser.GameObjects.GameObject) {
+        const ballon = ballonGameObject as BallonItem
+        
+        ballon.setBlowupSound(this.blowupSound)
+        ballon.setLetterNumber(10)
+        this.faune.setActiveBalloon(ballon)
     }
 }

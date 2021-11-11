@@ -13,7 +13,8 @@ export default class TopMenuScene extends Phaser.Scene {
   create() {
     const avatar = this.add.image(750, 50, 'buki_avatar')
     avatar.scale = 0.4
-    sceneEvents.on(sceneEventsEnum.ADD_OR_DESTROY_LETTER, this.addOrDestroyLetter, this)
+    sceneEvents.on(sceneEventsEnum.ADD_LETTER, this.addOrDestroyLetter, this)
+    sceneEvents.on(sceneEventsEnum.DESTROY_LETTER, this.addOrDestroyLetter, this)
 
     if (this.avatarStorage.hasLetter()) {
       this.addOrDestroyLetter();

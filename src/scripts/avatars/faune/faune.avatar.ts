@@ -1,5 +1,5 @@
 import Phaser from 'phaser'
-import { sceneEvents, sceneEventsEnum } from '../../events/main.event'
+import BallonItem from '../../items/balloon/balloon.item'
 import { AvatarStorage } from '../../storage/avatar.storage'
 
 declare global {
@@ -12,6 +12,7 @@ declare global {
 
 export default class Faune extends Phaser.Physics.Arcade.Sprite {
   private avatarStorage:AvatarStorage
+  private activeBalloon?:BallonItem
 
   constructor(scene: Phaser.Scene, x: number, y: number, texture: string, frame?: string | number) {
     super(scene, x, y, texture, frame)
@@ -29,26 +30,34 @@ export default class Faune extends Phaser.Physics.Arcade.Sprite {
     }
 
     if (Phaser.Input.Keyboard.JustDown(cursors.space!)) {
-      this.avatarStorage.addOrRemoveLetter()
-      sceneEvents.emit(sceneEventsEnum.ADD_OR_DESTROY_LETTER)
+      const hasLetter = this.avatarStorage.hasLetter()
+      if (!hasLetter && this.activeBalloon) {
+        this.activeBalloon.blowup()
+        setTimeout(this.destroyActiveBalloon.bind(this),800)
+      }
     }
 
     const speed = 100
 
-    if (cursors.left?.isDown) {
+    const leftDown = cursors.left?.isDown
+		const rightDown = cursors.right?.isDown
+		const upDown = cursors.up?.isDown
+		const downDown = cursors.down?.isDown
+
+    if (leftDown) {
       this.anims.play('faune-run-side', true)
       this.setVelocity(-speed, 0)
       this.scaleX = -1
       this.body.offset.x = 32
-    } else if (cursors.right?.isDown) {
+    } else if (rightDown) {
       this.anims.play('faune-run-side', true)
       this.setVelocity(speed, 0)
       this.scaleX = 1
       this.body.offset.x = 10
-    } else if (cursors.up?.isDown) {
+    } else if (upDown) {
       this.anims.play('faune-run-up', true)
       this.setVelocity(0, -speed)
-    } else if (cursors.down?.isDown) {
+    } else if (downDown) {
       this.anims.play('faune-run-down', true)
       this.setVelocity(0, speed)
     } else {
@@ -57,5 +66,20 @@ export default class Faune extends Phaser.Physics.Arcade.Sprite {
       this.anims.play(parts.join('-'))
       this.setVelocity(0, 0)
     }
+
+    if (leftDown || rightDown || upDown || downDown) {
+      this.activeBalloon = undefined
+    }
+  }
+
+  setActiveBalloon(ballon:BallonItem) {
+    this.activeBalloon = ballon
+  }
+
+  private destroyActiveBalloon() {
+    if (!this.activeBalloon) return
+
+    this.activeBalloon.destroy()
+    this.activeBalloon = undefined
   }
 }
