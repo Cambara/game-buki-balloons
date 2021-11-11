@@ -2,6 +2,7 @@ import { createFauneAnim } from "../avatars/faune/faune.anim";
 import Faune from "../avatars/faune/faune.avatar";
 import { createBallonAnims } from "../items/balloon/balloon.anim";
 import BallonItem from "../items/balloon/balloon.item";
+import AnaNPC from "../npcs/ana/ana.npc";
 import TextBoxUI from "../ui/text-box.ui";
 
 export default class TempScene extends Phaser.Scene {
@@ -58,6 +59,14 @@ export default class TempScene extends Phaser.Scene {
         ballons.get(300, 300, 'balloon')
         
         this.physics.add.collider(this.faune, ballons, this.handleAvatarBallonCollision, undefined, this)
+
+        const anas = this.physics.add.staticGroup({
+            classType: AnaNPC            
+        })
+
+        anas.get(100, 250, 'ana')
+
+        this.physics.add.collider(this.faune, anas)
 
     }
 
