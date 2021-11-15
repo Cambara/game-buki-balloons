@@ -1,10 +1,12 @@
 import { createFauneAnim } from "../avatars/faune/faune.anim";
 import Faune from "../avatars/faune/faune.avatar";
+import { sceneEvents, sceneEventsEnum } from "../events/main.event";
 import { createBallonAnims } from "../items/balloon/balloon.anim";
 import BallonItem from "../items/balloon/balloon.item";
 import AnaNPC from "../npcs/ana/ana.npc";
 import { createWindAnims } from "../npcs/wind/wind.anim";
 import WindNPC from "../npcs/wind/wind.npc";
+import { AvatarStorage } from "../storage/avatar.storage";
 import TextBoxUI from "../ui/text-box.ui";
 
 export default class TempScene extends Phaser.Scene {
@@ -13,6 +15,7 @@ export default class TempScene extends Phaser.Scene {
     private txtBox?:TextBoxUI
     private blowupSound: Phaser.Sound.BaseSound
     private winds: Phaser.Physics.Arcade.Group
+    private avatarStorage:AvatarStorage
 
     private scriptTexts = [
         ['oi'],
@@ -32,6 +35,7 @@ export default class TempScene extends Phaser.Scene {
         super({
             key: 'TempScene'
         })
+        this.avatarStorage = AvatarStorage.getInstance()
     }
 
     preload() {
@@ -57,7 +61,12 @@ export default class TempScene extends Phaser.Scene {
         //this.txtBox = new TextBoxUI(this, lines, 'ana_avatar')
         
         const ballons = this.physics.add.staticGroup({
-            classType: BallonItem
+            classType: BallonItem,
+            createCallback: (go) => {
+                const ballon = go as BallonItem
+                ballon.setBlowupSound(this.blowupSound)
+                ballon.setLetterNumber(10)
+            }
         })
 
         ballons.get(300, 300, 'balloon')
@@ -93,9 +102,18 @@ export default class TempScene extends Phaser.Scene {
     update() {
         if (this.faune && !this.txtBox) {
             if (this.faune.hasAnaNPC() && Phaser.Input.Keyboard.JustDown(this.cursors.space!)) {
-                const lines = [
+                let lines = [
                     'Buki maria, tu precisa ir atrás de outro balão!!!'
                 ]
+                if (this.avatarStorage.hasLetter()) {
+                    const letter = this.avatarStorage.getLetter();
+                    lines = [
+                        `Está é a carta ${letter}`
+                    ]
+                    this.avatarStorage.removeLetter()
+                    sceneEvents.emit(sceneEventsEnum.DESTROY_LETTER)
+                }
+                
                 this.txtBox = new TextBoxUI(this, lines, 'ana_avatar')
                 return
             }
@@ -123,9 +141,6 @@ export default class TempScene extends Phaser.Scene {
 
     private handleAvatarBallonCollision(avatar: Phaser.GameObjects.GameObject, ballonGameObject: Phaser.GameObjects.GameObject) {
         const ballon = ballonGameObject as BallonItem
-        
-        ballon.setBlowupSound(this.blowupSound)
-        ballon.setLetterNumber(10)
         this.faune.setActiveBalloon(ballon)
     }
 
