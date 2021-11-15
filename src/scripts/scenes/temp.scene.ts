@@ -65,7 +65,11 @@ export default class TempScene extends Phaser.Scene {
         this.physics.add.collider(this.faune, ballons, this.handleAvatarBallonCollision, undefined, this)
         
         const anas = this.physics.add.staticGroup({
-            classType: AnaNPC
+            classType: AnaNPC,
+            createCallback: (go) => {
+                const anaNPC = go as AnaNPC
+                anaNPC.scale = 1.2;
+            }
         })
 
         anas.get(100, 250, 'ana')
@@ -81,7 +85,7 @@ export default class TempScene extends Phaser.Scene {
         })
 
         this.winds.get(300, 50)
-        this.physics.add.collider(this.faune, this.winds, this.handleAvatarWindCollision, () => console.log('gente'), this)
+        this.physics.add.collider(this.faune, this.winds, this.handleAvatarWindCollision, undefined, this)
         
 
     }
@@ -131,7 +135,6 @@ export default class TempScene extends Phaser.Scene {
     }
 
     private handleAvatarWindCollision(avatar: Phaser.GameObjects.GameObject, windGameObject: Phaser.GameObjects.GameObject) {
-        const wind = windGameObject as WindNPC
-        console.log('baaateu')
+        this.faune.setPosition(500, 300)
     }
 }
