@@ -8,6 +8,7 @@ import { createWindAnims } from "../npcs/wind/wind.anim";
 import WindNPC from "../npcs/wind/wind.npc";
 import { AvatarStorage } from "../storage/avatar.storage";
 import TextBoxUI from "../ui/text-box.ui";
+import { StagesEnum } from "./stages.enum";
 
 export default class TempScene extends Phaser.Scene {
     private cursors!: Phaser.Types.Input.Keyboard.CursorKeys
@@ -51,8 +52,32 @@ export default class TempScene extends Phaser.Scene {
         createBallonAnims(this.anims)
         createWindAnims(this.anims)
 
+        const map = this.make.tilemap({ key: StagesEnum.HALL })
+        const tileset = map.addTilesetImage('hall_32x', 'hall-tiles')
+
+        map.createLayer('ground', tileset)
+        const wallsLayer = map.createLayer('walls', tileset)
+        wallsLayer.setCollisionByProperty({ collides: true })
+
+        const doorsLayer = map.createLayer('doors', tileset)
+        doorsLayer.setCollisionByProperty({ collides: true })
+
+        const furnitureLayer = map.createLayer('furniture', tileset)
+        furnitureLayer.setCollisionByProperty({ collides: true })
+
         this.faune = this.add.faune(50, 50, 'faune');
         const lines = this.getNextLines()
+
+        this.physics.add.collider(this.faune, wallsLayer)
+        this.physics.add.collider(this.faune, doorsLayer)
+        this.physics.add.collider(this.faune, furnitureLayer)
+    
+        const goToList = map.filterObjects("spawn-point", (obj) => obj.type === "go_to")
+        const spawnPoints = map.createFromObjects("spawn-point", {})
+        
+        const spawnGroup = this.physics.add.group()
+        spawnGroup.addMultiple(spawnPoints)
+        this.physics.add.overlap(this.faune, spawnGroup, this.handleGoToCollision, undefined, this)
 
         if (!lines) {
             return
@@ -151,5 +176,9 @@ export default class TempScene extends Phaser.Scene {
 
     private handleAvatarWindCollision(avatar: Phaser.GameObjects.GameObject, windGameObject: Phaser.GameObjects.GameObject) {
         this.faune.setPosition(500, 300)
+    }
+
+    private handleGoToCollision(avatar: Phaser.GameObjects.GameObject, spawnPoint: Phaser.GameObjects.GameObject ) {
+        console.log(spawnPoint)
     }
 }

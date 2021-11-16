@@ -1,9 +1,15 @@
+import { StagesEnum } from "./stages.enum"
+
 export default class PreloadScene extends Phaser.Scene {
   constructor() {
     super({ key: 'PreloadScene' })
   }
 
   preload() {
+    //Stages
+    this.load.image('hall-tiles', 'assets/maps/hall/hall_32x.png')
+    this.load.tilemapTiledJSON(StagesEnum.HALL, 'assets/maps/hall/hall.json')
+
     this.load.image('buki_background', 'assets/img/buki_background_1.jpg')
     this.load.image('letter-icon', 'assets/items/letter/letter.jpeg')
     this.load.atlas('faune', 'assets/avatars/faune/texture.png', 'assets/avatars/faune/texture.json')
