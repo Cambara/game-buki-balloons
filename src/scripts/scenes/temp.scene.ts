@@ -34,7 +34,7 @@ export default class TempScene extends Phaser.Scene {
 
     constructor() {
         super({
-            key: 'TempScene'
+            key: 'BasementScene'
         })
         this.avatarStorage = AvatarStorage.getInstance()
     }
@@ -98,7 +98,7 @@ export default class TempScene extends Phaser.Scene {
         this.physics.add.collider(this.faune, this.winds, this.handleAvatarWindCollision, undefined, this)
         
         const rec = this.add.rectangle(250, 250, 32, 32, 0x6666ff)
-
+        rec.alpha = 0;
         const spawnGroup = this.physics.add.group()
         spawnGroup.add(rec)
         this.physics.add.overlap(this.faune, spawnGroup, this.handleSpawnEvent, undefined, this)

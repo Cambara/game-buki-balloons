@@ -1,6 +1,5 @@
-import { StagesEnum } from "../scenes/stages.enum";
 
 export interface CheckPointModal {
-    stage: StagesEnum
+    stage: string
     key: string
 }

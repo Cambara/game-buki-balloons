@@ -1,12 +1,13 @@
-import { createFauneAnim } from "../avatars/faune/faune.anim";
-import Faune from "../avatars/faune/faune.avatar";
-import { AvatarStorage } from "../storage/avatar.storage";
-import { StagesEnum } from "./stages.enum";
+import { createFauneAnim } from '../avatars/faune/faune.anim';
+import Faune from '../avatars/faune/faune.avatar';
+import { AvatarStorage } from '../storage/avatar.storage';
+import { StagesEnum } from './stages.enum';
 
 export default class HallScene extends Phaser.Scene {
     private cursors!: Phaser.Types.Input.Keyboard.CursorKeys
     private faune!: Faune
     private avatarStorage:AvatarStorage
+    private map:Phaser.Tilemaps.Tilemap
 
     constructor() {
         super({
@@ -23,24 +24,24 @@ export default class HallScene extends Phaser.Scene {
         this.scene.run('top-menu')
         createFauneAnim(this.anims)
 
-        const map = this.make.tilemap({ key: StagesEnum.HALL })
-        const tileset = map.addTilesetImage('hall_32x', 'hall-tiles')
+        this.map = this.make.tilemap({ key: StagesEnum.HALL })
+        const tileset = this.map.addTilesetImage('hall_32x', 'hall-tiles')
 
-        const ground = map.createLayer('ground', tileset)
-        const wallsLayer = map.createLayer('walls', tileset)
+        const ground = this.map.createLayer('ground', tileset)
+        const wallsLayer = this.map.createLayer('walls', tileset)
         wallsLayer.setCollisionByProperty({ collides: true })
 
-        const doorsLayer = map.createLayer('doors', tileset)
+        const doorsLayer = this.map.createLayer('doors', tileset)
         doorsLayer.setCollisionByProperty({ collides: true })
 
-        const furnitureLayer = map.createLayer('furniture', tileset)
+        const furnitureLayer = this.map.createLayer('furniture', tileset)
         furnitureLayer.setCollisionByProperty({ collides: true })
 
         const checkPoint = this.avatarStorage.getCheckPoint()
         if (!checkPoint) {
-            throw new Error("Doesnt find the checkPoint")
+            throw new Error('Doesnt find the checkPoint')
         }
-        const spawnPoint = map.findObject("spawn-point", (obj) => obj.name === checkPoint.key)
+        const spawnPoint = this.map.findObject('spawn-point', (obj) => obj.name === checkPoint.key)
         this.faune = this.add.faune(spawnPoint.x || 100, spawnPoint.y || 100, 'faune');
 
         this.physics.add.collider(this.faune, ground)
@@ -48,10 +49,14 @@ export default class HallScene extends Phaser.Scene {
         this.physics.add.collider(this.faune, doorsLayer)
         this.physics.add.collider(this.faune, furnitureLayer)
     
-        const spawnPoints = map.createFromObjects("spawn-point", {})
-        
+        const spawnPoints = this.map.filterObjects('spawn-point', (obj) => obj.type === 'go_to')
+        const recPoints = spawnPoints.map( sp => {
+            const rec =this.add.rectangle(sp.x, sp.y, sp.width, sp.height, 0x6666ff, 0)
+            rec.name = sp.name
+            return rec
+        })
         const spawnGroup = this.physics.add.group()
-        spawnGroup.addMultiple(spawnPoints)
+        spawnGroup.addMultiple(recPoints)
         this.physics.add.overlap(this.faune, spawnGroup, this.handleGoToCollision, undefined, this)
     }
 
@@ -59,7 +64,14 @@ export default class HallScene extends Phaser.Scene {
         this.faune.update(this.cursors)
     }
 
-    private handleGoToCollision(avatar: Phaser.GameObjects.GameObject, spawnPoint: Phaser.GameObjects.GameObject ) {
-        console.log(spawnPoint)
+    private handleGoToCollision(avatar: Phaser.GameObjects.GameObject, gameObj: Phaser.GameObjects.GameObject ) {
+        const spawnPoint = this.map.findObject('spawn-point', (obj) => obj.name === gameObj.name)
+        if (spawnPoint && spawnPoint.type === 'go_to') {
+            this.avatarStorage.putCheckPoint({
+                key: spawnPoint.name,
+                stage: spawnPoint.properties[0].value
+            })
+            this.scene.start(spawnPoint.properties[0].value);
+        }
     }
 }
