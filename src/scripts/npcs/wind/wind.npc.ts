@@ -2,7 +2,6 @@ import Phaser from 'phaser'
 
 export default class WindNPC extends Phaser.Physics.Arcade.Sprite
 {
-    private moveEvent: Phaser.Time.TimerEvent
 
 	constructor(scene: Phaser.Scene, x: number, y: number, texture: string, frame?: string | number)
 	{
@@ -22,8 +21,6 @@ export default class WindNPC extends Phaser.Physics.Arcade.Sprite
 
     destroy(fromScene?: boolean)
 	{
-		this.moveEvent.destroy()
-
 		super.destroy(fromScene)
 	}
 }

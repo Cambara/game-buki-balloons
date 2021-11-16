@@ -1,15 +1,18 @@
 import { createFauneAnim } from "../avatars/faune/faune.anim";
 import Faune from "../avatars/faune/faune.avatar";
+import { AvatarStorage } from "../storage/avatar.storage";
 import { StagesEnum } from "./stages.enum";
 
 export default class HallScene extends Phaser.Scene {
     private cursors!: Phaser.Types.Input.Keyboard.CursorKeys
     private faune!: Faune
+    private avatarStorage:AvatarStorage
 
     constructor() {
         super({
             key: StagesEnum.HALL
         })
+        this.avatarStorage = AvatarStorage.getInstance()
     }
 
     preload() {
@@ -23,7 +26,7 @@ export default class HallScene extends Phaser.Scene {
         const map = this.make.tilemap({ key: StagesEnum.HALL })
         const tileset = map.addTilesetImage('hall_32x', 'hall-tiles')
 
-        map.createLayer('ground', tileset)
+        const ground = map.createLayer('ground', tileset)
         const wallsLayer = map.createLayer('walls', tileset)
         wallsLayer.setCollisionByProperty({ collides: true })
 
@@ -33,8 +36,14 @@ export default class HallScene extends Phaser.Scene {
         const furnitureLayer = map.createLayer('furniture', tileset)
         furnitureLayer.setCollisionByProperty({ collides: true })
 
-        this.faune = this.add.faune(50, 50, 'faune');
+        const checkPoint = this.avatarStorage.getCheckPoint()
+        if (!checkPoint) {
+            throw new Error("Doesnt find the checkPoint")
+        }
+        const spawnPoint = map.findObject("spawn-point", (obj) => obj.name === checkPoint.key)
+        this.faune = this.add.faune(spawnPoint.x || 100, spawnPoint.y || 100, 'faune');
 
+        this.physics.add.collider(this.faune, ground)
         this.physics.add.collider(this.faune, wallsLayer)
         this.physics.add.collider(this.faune, doorsLayer)
         this.physics.add.collider(this.faune, furnitureLayer)

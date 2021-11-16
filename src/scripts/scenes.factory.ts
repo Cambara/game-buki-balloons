@@ -1,3 +1,4 @@
+import HallScene from "./scenes/hall.scene";
 import PreloadScene from "./scenes/preload.scene";
 import StartMenuScene from "./scenes/start-menu.scene";
 import TempScene from "./scenes/temp.scene";
@@ -7,5 +8,6 @@ export const scenes = [
     PreloadScene,
     StartMenuScene,
     TempScene,
-    TopMenuScene
+    TopMenuScene,
+    HallScene
 ]

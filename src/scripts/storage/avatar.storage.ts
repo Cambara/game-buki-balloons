@@ -1,3 +1,5 @@
+import { CheckPointModal } from "../modal/check-point.modal"
+
 export class AvatarStorage {
   private static instace: AvatarStorage
 
@@ -25,5 +27,14 @@ export class AvatarStorage {
 
   hasLetter():boolean {
     return !!this.getLetter()
+  }
+
+  putCheckPoint(checkPoint:CheckPointModal) {
+    localStorage.setItem('checkPoint', JSON.stringify(checkPoint))
+  }
+
+  getCheckPoint():CheckPointModal | null {
+    const cP = localStorage.getItem('checkPoint')
+    return cP ? JSON.parse(cP): null
   }
 }

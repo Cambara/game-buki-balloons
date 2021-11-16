@@ -52,32 +52,8 @@ export default class TempScene extends Phaser.Scene {
         createBallonAnims(this.anims)
         createWindAnims(this.anims)
 
-        const map = this.make.tilemap({ key: StagesEnum.HALL })
-        const tileset = map.addTilesetImage('hall_32x', 'hall-tiles')
-
-        map.createLayer('ground', tileset)
-        const wallsLayer = map.createLayer('walls', tileset)
-        wallsLayer.setCollisionByProperty({ collides: true })
-
-        const doorsLayer = map.createLayer('doors', tileset)
-        doorsLayer.setCollisionByProperty({ collides: true })
-
-        const furnitureLayer = map.createLayer('furniture', tileset)
-        furnitureLayer.setCollisionByProperty({ collides: true })
-
         this.faune = this.add.faune(50, 50, 'faune');
         const lines = this.getNextLines()
-
-        this.physics.add.collider(this.faune, wallsLayer)
-        this.physics.add.collider(this.faune, doorsLayer)
-        this.physics.add.collider(this.faune, furnitureLayer)
-    
-        const goToList = map.filterObjects("spawn-point", (obj) => obj.type === "go_to")
-        const spawnPoints = map.createFromObjects("spawn-point", {})
-        
-        const spawnGroup = this.physics.add.group()
-        spawnGroup.addMultiple(spawnPoints)
-        this.physics.add.overlap(this.faune, spawnGroup, this.handleGoToCollision, undefined, this)
 
         if (!lines) {
             return
@@ -121,6 +97,11 @@ export default class TempScene extends Phaser.Scene {
         this.winds.get(300, 50)
         this.physics.add.collider(this.faune, this.winds, this.handleAvatarWindCollision, undefined, this)
         
+        const rec = this.add.rectangle(250, 250, 32, 32, 0x6666ff)
+
+        const spawnGroup = this.physics.add.group()
+        spawnGroup.add(rec)
+        this.physics.add.overlap(this.faune, spawnGroup, this.handleSpawnEvent, undefined, this)
 
     }
 
@@ -178,7 +159,11 @@ export default class TempScene extends Phaser.Scene {
         this.faune.setPosition(500, 300)
     }
 
-    private handleGoToCollision(avatar: Phaser.GameObjects.GameObject, spawnPoint: Phaser.GameObjects.GameObject ) {
-        console.log(spawnPoint)
+    private handleSpawnEvent(avatar: Phaser.GameObjects.GameObject, windGameObject: Phaser.GameObjects.GameObject) {
+        this.avatarStorage.putCheckPoint({
+            key: 'door_2',
+            stage: StagesEnum.HALL
+        })
+        this.scene.start(StagesEnum.HALL);
     }
 }
