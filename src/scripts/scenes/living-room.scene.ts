@@ -28,6 +28,7 @@ export default class LivingRoomScene extends Phaser.Scene {
         const tileset = this.map.addTilesetImage('living-room_32x', 'living-room-tiles')
 
         const ground = this.map.createLayer('ground', tileset)
+        ground.setCollisionByProperty({ collides: true })
         const wallsLayer = this.map.createLayer('walls', tileset)
         wallsLayer.setCollisionByProperty({ collides: true })
 
@@ -37,8 +38,8 @@ export default class LivingRoomScene extends Phaser.Scene {
         const furnitureLayer = this.map.createLayer('furniture', tileset)
         furnitureLayer.setCollisionByProperty({ collides: true })
 
-        //const furniture2Layer = this.map.createLayer('furniture_2', tileset)
-        //furniture2Layer.setCollisionByProperty({ collides: true })
+        const furniture2Layer = this.map.createLayer('furniture_2', tileset)
+        furniture2Layer.setCollisionByProperty({ collides: true })
 
         const checkPoint = this.avatarStorage.getCheckPoint()
         if (!checkPoint) {
@@ -51,7 +52,7 @@ export default class LivingRoomScene extends Phaser.Scene {
         this.physics.add.collider(this.avatar, wallsLayer)
         this.physics.add.collider(this.avatar, doorsLayer)
         this.physics.add.collider(this.avatar, furnitureLayer)
-        //this.physics.add.collider(this.avatar, furniture2Layer)
+        this.physics.add.collider(this.avatar, furniture2Layer)
     
         const spawnPoints = this.map.filterObjects('spawn-point', (obj) => obj.type === 'go_to')
         const recPoints = spawnPoints.map( sp => {
