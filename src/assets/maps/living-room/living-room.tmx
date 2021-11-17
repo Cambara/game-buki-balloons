@@ -3979,6 +3979,9 @@
    </properties>
   </object>
   <object id="5" name="letter_2" type="balloon" x="560.502" y="115.634">
+   <properties>
+    <property name="letter" type="int" value="2"/>
+   </properties>
    <point/>
   </object>
   <object id="6" name="living-room_door_2" type="came_to" x="337.16" y="136.02">

@@ -124,6 +124,12 @@
                  "id":5,
                  "name":"letter_2",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"letter",
+                         "type":"int",
+                         "value":2
+                        }],
                  "rotation":0,
                  "type":"balloon",
                  "visible":true,
