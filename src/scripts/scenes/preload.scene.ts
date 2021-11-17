@@ -13,6 +13,7 @@ export default class PreloadScene extends Phaser.Scene {
     //Avatars
     this.load.atlas('faune', 'assets/avatars/faune/texture.png', 'assets/avatars/faune/texture.json')
     this.load.atlas('buki', 'assets/avatars/buki/texture.png', 'assets/avatars/buki/texture.json')
+    this.load.atlas('buki-side', 'assets/avatars/buki/texture-side/texture.png', 'assets/avatars/buki/texture-side/texture.json')
     this.load.image('buki_avatar', 'assets/avatars/buki/avatar.png')
 
     this.load.image('buki_background', 'assets/img/buki_background_1.jpg')

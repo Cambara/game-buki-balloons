@@ -16,8 +16,6 @@ Phaser.GameObjects.GameObjectFactory.register(
 
     this.scene.physics.world.enableBody(sprite, Phaser.Physics.Arcade.DYNAMIC_BODY)
 
-    //sprite.body.setSize(sprite.width * 0.5, sprite.height * 0.8)
-
     return sprite
   }
 )

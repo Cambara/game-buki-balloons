@@ -13,7 +13,7 @@ export const createBukiAnim = (anims: Phaser.Animations.AnimationManager): void 
         key: 'buki-idle-left',
         frames: [
           {
-            key: 'buki',
+            key: 'buki-side',
             frame: 'walk-left/walk-left-1.png'
           }
         ]
@@ -23,7 +23,7 @@ export const createBukiAnim = (anims: Phaser.Animations.AnimationManager): void 
         key: 'buki-idle-right',
         frames: [
           {
-            key: 'buki',
+            key: 'buki-side',
             frame: 'walk-right/walk-right-1.png'
           }
         ]
@@ -53,7 +53,7 @@ export const createBukiAnim = (anims: Phaser.Animations.AnimationManager): void 
 
     anims.create({
         key: 'buki-run-left',
-        frames: anims.generateFrameNames('buki', {
+        frames: anims.generateFrameNames('buki-side', {
           start: 1,
           end: 3,
           prefix: 'walk-left/walk-left-',
@@ -65,7 +65,7 @@ export const createBukiAnim = (anims: Phaser.Animations.AnimationManager): void 
 
     anims.create({
         key: 'buki-run-right',
-        frames: anims.generateFrameNames('buki', {
+        frames: anims.generateFrameNames('buki-side', {
           start: 1,
           end: 3,
           prefix: 'walk-right/walk-right-',

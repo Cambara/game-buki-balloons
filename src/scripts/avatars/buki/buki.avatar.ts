@@ -49,17 +49,23 @@ export default class Buki extends Phaser.Physics.Arcade.Sprite {
     if (leftDown) {
       this.anims.play('buki-run-left', true)
       this.setVelocity(-speed, 0)
-      this.scaleX = -1
+      this.body.setSize(this.width, this.height * 0.5)
+      this.body.offset.y = 20
     } else if (rightDown) {
       this.anims.play('buki-run-right', true)
       this.setVelocity(speed, 0)
-      this.scaleX = 1
+      this.body.setSize(this.width, this.height * 0.5)
+      this.body.offset.y = 20
     } else if (upDown) {
       this.anims.play('buki-run-up', true)
       this.setVelocity(0, -speed)
+      this.body.setSize(this.width * 0.5, this.height)
+      this.body.offset.y = 0
     } else if (downDown) {
       this.anims.play('buki-run-down', true)
       this.setVelocity(0, speed)
+      this.body.setSize(this.width * 0.5, this.height)
+      this.body.offset.y = 0
     } else {
       const parts = this.anims.currentAnim.key.split('-')
       parts[1] = 'idle'

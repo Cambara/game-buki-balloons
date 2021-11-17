@@ -1,11 +1,11 @@
-import { createFauneAnim } from '../avatars/faune/faune.anim';
-import Faune from '../avatars/faune/faune.avatar';
+import { createBukiAnim } from '../avatars/buki/buki.anim';
+import Buki from '../avatars/buki/buki.avatar';
 import { AvatarStorage } from '../storage/avatar.storage';
 import { StagesEnum } from './stages.enum';
 
 export default class HallScene extends Phaser.Scene {
     private cursors!: Phaser.Types.Input.Keyboard.CursorKeys
-    private faune!: Faune
+    private avatar!: Buki
     private avatarStorage:AvatarStorage
     private map:Phaser.Tilemaps.Tilemap
 
@@ -22,7 +22,7 @@ export default class HallScene extends Phaser.Scene {
 
     create() {
         this.scene.run('top-menu')
-        createFauneAnim(this.anims)
+        createBukiAnim(this.anims)
 
         this.map = this.make.tilemap({ key: StagesEnum.HALL })
         const tileset = this.map.addTilesetImage('hall_32x', 'hall-tiles')
@@ -42,12 +42,12 @@ export default class HallScene extends Phaser.Scene {
             throw new Error('Doesnt find the checkPoint')
         }
         const spawnPoint = this.map.findObject('spawn-point', (obj) => obj.name === checkPoint.key)
-        this.faune = this.add.faune(spawnPoint.x || 100, spawnPoint.y || 100, 'faune');
+        this.avatar = this.add.buki(spawnPoint.x || 100, spawnPoint.y || 100, 'avatar');
 
-        this.physics.add.collider(this.faune, ground)
-        this.physics.add.collider(this.faune, wallsLayer)
-        this.physics.add.collider(this.faune, doorsLayer)
-        this.physics.add.collider(this.faune, furnitureLayer)
+        this.physics.add.collider(this.avatar, ground)
+        this.physics.add.collider(this.avatar, wallsLayer)
+        this.physics.add.collider(this.avatar, doorsLayer)
+        this.physics.add.collider(this.avatar, furnitureLayer)
     
         const spawnPoints = this.map.filterObjects('spawn-point', (obj) => obj.type === 'go_to')
         const recPoints = spawnPoints.map( sp => {
@@ -57,11 +57,11 @@ export default class HallScene extends Phaser.Scene {
         })
         const spawnGroup = this.physics.add.group()
         spawnGroup.addMultiple(recPoints)
-        this.physics.add.overlap(this.faune, spawnGroup, this.handleGoToCollision, undefined, this)
+        this.physics.add.overlap(this.avatar, spawnGroup, this.handleGoToCollision, undefined, this)
     }
 
     update() {
-        this.faune.update(this.cursors)
+        this.avatar.update(this.cursors)
     }
 
     private handleGoToCollision(avatar: Phaser.GameObjects.GameObject, gameObj: Phaser.GameObjects.GameObject ) {
