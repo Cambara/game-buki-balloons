@@ -1,5 +1,5 @@
-import { createFauneAnim } from "../avatars/faune/faune.anim";
-import Faune from "../avatars/faune/faune.avatar";
+import { createBukiAnim } from "../avatars/buki/buki.anim";
+import Buki from "../avatars/buki/buki.avatar";
 import { sceneEvents, sceneEventsEnum } from "../events/main.event";
 import { createBallonAnims } from "../items/balloon/balloon.anim";
 import BallonItem from "../items/balloon/balloon.item";
@@ -12,7 +12,7 @@ import { StagesEnum } from "./stages.enum";
 
 export default class TempScene extends Phaser.Scene {
     private cursors!: Phaser.Types.Input.Keyboard.CursorKeys
-    private faune!: Faune
+    private avatar!: Buki
     private txtBox?:TextBoxUI
     private blowupSound: Phaser.Sound.BaseSound
     private winds: Phaser.Physics.Arcade.Group
@@ -48,11 +48,11 @@ export default class TempScene extends Phaser.Scene {
 
     create() {
         this.scene.run('top-menu')
-        createFauneAnim(this.anims)
+        createBukiAnim(this.anims)
         createBallonAnims(this.anims)
         createWindAnims(this.anims)
 
-        this.faune = this.add.faune(50, 50, 'faune');
+        this.avatar = this.add.buki(50, 50, 'buki');
         const lines = this.getNextLines()
 
         if (!lines) {
@@ -72,7 +72,7 @@ export default class TempScene extends Phaser.Scene {
 
         ballons.get(300, 300, 'balloon')
         
-        this.physics.add.collider(this.faune, ballons, this.handleAvatarBallonCollision, undefined, this)
+        this.physics.add.collider(this.avatar, ballons, this.handleAvatarBallonCollision, undefined, this)
         
         const anas = this.physics.add.staticGroup({
             classType: AnaNPC,
@@ -84,7 +84,7 @@ export default class TempScene extends Phaser.Scene {
 
         anas.get(100, 250, 'ana')
 
-        this.physics.add.collider(this.faune, anas, this.handleAvatarAnaCollision, undefined, this)
+        this.physics.add.collider(this.avatar, anas, this.handleAvatarAnaCollision, undefined, this)
 
         this.winds = this.physics.add.group({
             classType: WindNPC,
@@ -95,19 +95,19 @@ export default class TempScene extends Phaser.Scene {
         })
 
         this.winds.get(300, 50)
-        this.physics.add.collider(this.faune, this.winds, this.handleAvatarWindCollision, undefined, this)
+        this.physics.add.collider(this.avatar, this.winds, this.handleAvatarWindCollision, undefined, this)
         
         const rec = this.add.rectangle(250, 250, 32, 32, 0x6666ff)
         rec.alpha = 0;
         const spawnGroup = this.physics.add.group()
         spawnGroup.add(rec)
-        this.physics.add.overlap(this.faune, spawnGroup, this.handleSpawnEvent, undefined, this)
+        this.physics.add.overlap(this.avatar, spawnGroup, this.handleSpawnEvent, undefined, this)
 
     }
 
     update() {
-        if (this.faune && !this.txtBox) {
-            if (this.faune.hasAnaNPC() && Phaser.Input.Keyboard.JustDown(this.cursors.space!)) {
+        if (this.avatar && !this.txtBox) {
+            if (this.avatar.hasAnaNPC() && Phaser.Input.Keyboard.JustDown(this.cursors.space!)) {
                 let lines = [
                     'Buki maria, tu precisa ir atrás de outro balão!!!'
                 ]
@@ -124,7 +124,7 @@ export default class TempScene extends Phaser.Scene {
                 return
             }
 
-            this.faune.update(this.cursors)
+            this.avatar.update(this.cursors)
         }
 
         if (this.txtBox && this.txtBox.isToPressSpace() && Phaser.Input.Keyboard.JustDown(this.cursors.space!)) {
@@ -147,16 +147,16 @@ export default class TempScene extends Phaser.Scene {
 
     private handleAvatarBallonCollision(avatar: Phaser.GameObjects.GameObject, ballonGameObject: Phaser.GameObjects.GameObject) {
         const ballon = ballonGameObject as BallonItem
-        this.faune.setActiveBalloon(ballon)
+        this.avatar.setActiveBalloon(ballon)
     }
 
     private handleAvatarAnaCollision(avatar: Phaser.GameObjects.GameObject, anaGameObject: Phaser.GameObjects.GameObject) {
         const ana = anaGameObject as AnaNPC
-        this.faune.setAnaNPC(ana)
+        this.avatar.setAnaNPC(ana)
     }
 
     private handleAvatarWindCollision(avatar: Phaser.GameObjects.GameObject, windGameObject: Phaser.GameObjects.GameObject) {
-        this.faune.setPosition(500, 300)
+        this.avatar.setPosition(500, 300)
     }
 
     private handleSpawnEvent(avatar: Phaser.GameObjects.GameObject, windGameObject: Phaser.GameObjects.GameObject) {
