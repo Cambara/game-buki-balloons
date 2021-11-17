@@ -5,10 +5,10 @@
   "savePath": "",
   "images": [],
   "folders": [
-    "/home/cambara/projects/my/repositories/game-buki-balloons/src/assets/avatars/buki/bite-down",
-    "/home/cambara/projects/my/repositories/game-buki-balloons/src/assets/avatars/buki/bite-up",
-    "/home/cambara/projects/my/repositories/game-buki-balloons/src/assets/avatars/buki/walk-down",
-    "/home/cambara/projects/my/repositories/game-buki-balloons/src/assets/avatars/buki/walk-up"
+    "/home/cambara/projects/my/repositories/game-buki-balloons/src/assets/avatars/buki/bite-left",
+    "/home/cambara/projects/my/repositories/game-buki-balloons/src/assets/avatars/buki/bite-right",
+    "/home/cambara/projects/my/repositories/game-buki-balloons/src/assets/avatars/buki/walk-left",
+    "/home/cambara/projects/my/repositories/game-buki-balloons/src/assets/avatars/buki/walk-right"
   ],
   "packOptions": {
     "textureName": "texture",
@@ -23,8 +23,8 @@
     "exporter": "JSON (hash)",
     "fileName": "pack-result",
     "savePath": "",
-    "width": 1080,
-    "height": 32,
+    "width": 32,
+    "height": 1080,
     "fixedSize": false,
     "powerOfTwo": false,
     "padding": 0,
