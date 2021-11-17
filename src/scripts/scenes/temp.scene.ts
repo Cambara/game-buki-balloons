@@ -161,7 +161,7 @@ export default class TempScene extends Phaser.Scene {
 
     private handleSpawnEvent(avatar: Phaser.GameObjects.GameObject, windGameObject: Phaser.GameObjects.GameObject) {
         this.avatarStorage.putCheckPoint({
-            key: 'door_2',
+            key: 'hall_door_2',
             stage: StagesEnum.HALL
         })
         this.scene.start(StagesEnum.HALL);
