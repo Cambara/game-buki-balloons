@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="25" height="19" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="7">
+ <editorsettings>
+  <export target="living-room.json" format="json"/>
+ </editorsettings>
  <tileset firstgid="1" name="living-room_32x" tilewidth="32" tileheight="32" tilecount="768" columns="48">
   <image source="living-room_32x.png" width="1536" height="512"/>
   <tile id="0">
@@ -3959,18 +3962,18 @@
 </data>
  </layer>
  <objectgroup id="6" name="spawn-point">
-  <object id="1" name="door_4" type="go_to" x="234.48" y="421.4" width="42.5596" height="20.0753">
+  <object id="1" name="hall_door_4" type="go_to" x="234.48" y="421.4" width="42.5596" height="20.0753">
    <properties>
     <property name="stage" value="HallScene"/>
    </properties>
   </object>
-  <object id="2" name="door_1" type="came_to" x="254.555" y="410.339">
+  <object id="2" name="living-room_door_1" type="came_to" x="254.555" y="410.339">
    <properties>
     <property name="stage" value="LivingRoomScene"/>
    </properties>
    <point/>
   </object>
-  <object id="4" name="door_1" type="go_to" x="326.023" y="70.665" width="24.8934" height="30.5144">
+  <object id="4" name="back-garden_door_1" type="go_to" x="326.023" y="70.665" width="24.8934" height="30.5144">
    <properties>
     <property name="stage" value="BackGardenScene"/>
    </properties>
@@ -3978,7 +3981,7 @@
   <object id="5" name="letter_2" type="balloon" x="560.502" y="115.634">
    <point/>
   </object>
-  <object id="6" name="door_2" type="came_to" x="336.16" y="131.02">
+  <object id="6" name="living-room_door_2" type="came_to" x="336.16" y="131.02">
    <properties>
     <property name="stage" value="LivingRoomScene"/>
    </properties>

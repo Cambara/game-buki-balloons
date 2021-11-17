@@ -3939,46 +3939,46 @@
 </data>
  </layer>
  <objectgroup id="6" name="spawn-point">
-  <object id="7" name="door_1" type="go_to" x="209.34" y="168.22" width="24.29" height="52.1957">
+  <object id="7" name="basement_door_1" type="go_to" x="209.34" y="168.22" width="24.29" height="52.1957">
    <properties>
     <property name="stage" value="BasementScene"/>
    </properties>
   </object>
-  <object id="8" name="door_1" type="came_to" x="302.93" y="193.3">
+  <object id="8" name="hall_door_1" type="came_to" x="302.93" y="193.3">
    <properties>
     <property name="stage" value="HallScene"/>
    </properties>
    <point/>
   </object>
-  <object id="13" name="door_3" type="came_to" x="211.93" y="380.3">
+  <object id="13" name="hall_door_3" type="came_to" x="211.93" y="380.3">
    <properties>
     <property name="stage" value="HallScene"/>
    </properties>
    <point/>
   </object>
-  <object id="14" name="door_4" type="came_to" x="462.93" y="340.3">
+  <object id="14" name="hall_door_4" type="came_to" x="462.93" y="340.3">
    <properties>
     <property name="stage" value="HallScene"/>
    </properties>
    <point/>
   </object>
-  <object id="9" name="door_2" type="came_to" x="244.89" y="198.344">
+  <object id="9" name="hall_door_2" type="came_to" x="244.89" y="198.344">
    <properties>
     <property name="stage" value="HallScene"/>
    </properties>
    <point/>
   </object>
-  <object id="10" name="door_1" type="go_to" x="302.92" y="140.69" width="24.47" height="32.29">
+  <object id="10" name="kitchen_door_1" type="go_to" x="302.92" y="140.69" width="24.47" height="32.29">
    <properties>
     <property name="stage" value="KitchenScene"/>
    </properties>
   </object>
-  <object id="11" name="door_1" type="go_to" x="177.01" y="350.29" width="27.3024" height="52.9987">
+  <object id="11" name="second-floor_door_1" type="go_to" x="177.01" y="350.29" width="27.3024" height="52.9987">
    <properties>
     <property name="stage" value="SecondFloorScene"/>
    </properties>
   </object>
-  <object id="12" name="door_1" type="go_to" x="463.11" y="303.51" width="21.6813" height="28.1054">
+  <object id="12" name="living-room_door_1" type="go_to" x="463.11" y="303.51" width="21.6813" height="28.1054">
    <properties>
     <property name="stage" value="LivingRoomScene"/>
    </properties>

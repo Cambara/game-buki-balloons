@@ -70,7 +70,7 @@
                 {
                  "height":20.0752823086575,
                  "id":1,
-                 "name":"door_4",
+                 "name":"hall_door_4",
                  "properties":[
                         {
                          "name":"stage",
@@ -87,7 +87,7 @@
                 {
                  "height":0,
                  "id":2,
-                 "name":"door_1",
+                 "name":"living-room_door_1",
                  "point":true,
                  "properties":[
                         {
@@ -105,7 +105,7 @@
                 {
                  "height":30.5144291091594,
                  "id":4,
-                 "name":"door_1",
+                 "name":"back-garden_door_1",
                  "properties":[
                         {
                          "name":"stage",
@@ -134,7 +134,7 @@
                 {
                  "height":0,
                  "id":6,
-                 "name":"door_2",
+                 "name":"living-room_door_2",
                  "point":true,
                  "properties":[
                         {

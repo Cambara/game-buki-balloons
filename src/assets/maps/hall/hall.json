@@ -58,7 +58,7 @@
                 {
                  "height":52.1957,
                  "id":7,
-                 "name":"door_1",
+                 "name":"basement_door_1",
                  "properties":[
                         {
                          "name":"stage",
@@ -75,7 +75,7 @@
                 {
                  "height":0,
                  "id":8,
-                 "name":"door_1",
+                 "name":"hall_door_1",
                  "point":true,
                  "properties":[
                         {
@@ -93,7 +93,7 @@
                 {
                  "height":0,
                  "id":13,
-                 "name":"door_3",
+                 "name":"hall_door_3",
                  "point":true,
                  "properties":[
                         {
@@ -111,7 +111,7 @@
                 {
                  "height":0,
                  "id":14,
-                 "name":"door_4",
+                 "name":"hall_door_4",
                  "point":true,
                  "properties":[
                         {
@@ -129,7 +129,7 @@
                 {
                  "height":0,
                  "id":9,
-                 "name":"door_2",
+                 "name":"hall_door_2",
                  "point":true,
                  "properties":[
                         {
@@ -147,7 +147,7 @@
                 {
                  "height":32.29,
                  "id":10,
-                 "name":"door_1",
+                 "name":"kitchen_door_1",
                  "properties":[
                         {
                          "name":"stage",
@@ -164,7 +164,7 @@
                 {
                  "height":52.9987,
                  "id":11,
-                 "name":"door_1",
+                 "name":"second-floor_door_1",
                  "properties":[
                         {
                          "name":"stage",
@@ -181,7 +181,7 @@
                 {
                  "height":28.1054,
                  "id":12,
-                 "name":"door_1",
+                 "name":"living-room_door_1",
                  "properties":[
                         {
                          "name":"stage",
