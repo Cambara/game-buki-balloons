@@ -58,7 +58,7 @@
                 {
                  "height":52.1957,
                  "id":7,
-                 "name":"basement",
+                 "name":"door_1",
                  "properties":[
                         {
                          "name":"stage",
@@ -147,7 +147,7 @@
                 {
                  "height":32.29,
                  "id":10,
-                 "name":"kitchen",
+                 "name":"door_1",
                  "properties":[
                         {
                          "name":"stage",
@@ -164,7 +164,7 @@
                 {
                  "height":52.9987,
                  "id":11,
-                 "name":"second_floor",
+                 "name":"door_1",
                  "properties":[
                         {
                          "name":"stage",
@@ -181,7 +181,7 @@
                 {
                  "height":28.1054,
                  "id":12,
-                 "name":"living_room",
+                 "name":"door_1",
                  "properties":[
                         {
                          "name":"stage",
