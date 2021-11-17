@@ -9,6 +9,8 @@ export default class PreloadScene extends Phaser.Scene {
     //Stages
     this.load.image('hall-tiles', 'assets/maps/hall/hall_32x.png')
     this.load.tilemapTiledJSON(StagesEnum.HALL, 'assets/maps/hall/hall.json')
+    this.load.image('living-room-tiles', 'assets/maps/living-room/living-room_32x.png')
+    this.load.tilemapTiledJSON(StagesEnum.LIVING_ROOM, 'assets/maps/living-room/living-room.json')
     
     //Avatars
     this.load.atlas('faune', 'assets/avatars/faune/texture.png', 'assets/avatars/faune/texture.json')

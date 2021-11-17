@@ -1,4 +1,5 @@
 import HallScene from "./scenes/hall.scene";
+import LivingRoomScene from "./scenes/living-room.scene";
 import PreloadScene from "./scenes/preload.scene";
 import StartMenuScene from "./scenes/start-menu.scene";
 import TempScene from "./scenes/temp.scene";
@@ -9,5 +10,6 @@ export const scenes = [
     StartMenuScene,
     TempScene,
     TopMenuScene,
-    HallScene
+    HallScene,
+    LivingRoomScene
 ]
