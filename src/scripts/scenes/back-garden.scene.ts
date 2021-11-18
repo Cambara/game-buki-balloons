@@ -1,6 +1,8 @@
 import { createBukiAnim } from '../avatars/buki/buki.anim';
 import Buki from '../avatars/buki/buki.avatar';
 import BallonItem from '../items/balloon/balloon.item';
+import { createWindAnims } from '../npcs/wind/wind.anim';
+import WindNPC from '../npcs/wind/wind.npc';
 import { AvatarStorage } from '../storage/avatar.storage';
 import { LetterStorage } from '../storage/letter.storage';
 import { StagesEnum } from './stages.enum';
@@ -31,6 +33,7 @@ export default class BackGardenScene extends Phaser.Scene {
     create() {
         this.scene.run('top-menu')
         createBukiAnim(this.anims)
+        createWindAnims(this.anims)
 
         this.map = this.make.tilemap({ key: StagesEnum.BACK_GARDEN })
         const tileset = this.map.addTilesetImage('back-garden_32x', 'back-garden-tiles')
@@ -67,6 +70,26 @@ export default class BackGardenScene extends Phaser.Scene {
         const spawnGroup = this.physics.add.group()
         spawnGroup.addMultiple(recPoints)
         this.physics.add.overlap(this.avatar, spawnGroup, this.handleGoToCollision, undefined, this)
+
+
+        //Wind Logic
+        const winds = this.physics.add.group({
+            classType: WindNPC,
+            createCallback: (go) => {
+                const wind = go as WindNPC
+                wind.body.onCollide = true
+            }
+        })
+        
+        this.map.filterObjects('spawn-point', (obj) => obj.type === 'wind').forEach( obj => {
+            const windObj = winds.get(obj.x, obj.y)
+            const windNPC = windObj as WindNPC
+            windNPC.setWindVelocity(obj.properties[0].value);
+        })
+
+        this.physics.add.collider(furnitureLayer, winds, this.handleWindFunitureCollision, undefined, this)
+        this.physics.add.collider(furniture2Layer, winds, this.handleWindFunitureCollision, undefined, this)
+        this.physics.add.collider(this.avatar, winds, this.handleAvatarWindCollision, undefined, this)
 
         //Balloon logic
         const balloonPoint = this.map.findObject('spawn-point', (obj) => obj.type === 'balloon')
@@ -105,8 +128,23 @@ export default class BackGardenScene extends Phaser.Scene {
         }
     }
 
-    private handleAvatarBallonCollision(avatar: Phaser.GameObjects.GameObject, ballonGameObject: Phaser.GameObjects.GameObject) {
+    private handleAvatarBallonCollision(ballonGameObject: Phaser.GameObjects.GameObject) {
         const ballon = ballonGameObject as BallonItem
         this.avatar.setActiveBalloon(ballon)
+    }
+
+    private handleWindFunitureCollision(windObject: Phaser.GameObjects.GameObject, funitureObject: Phaser.GameObjects.GameObject) {
+        const wind = windObject as WindNPC
+        wind.restartXValue()
+    }
+
+    private handleAvatarWindCollision(avatarObj: Phaser.GameObjects.GameObject, windObject: Phaser.GameObjects.GameObject) {
+        const checkPoint = this.avatarStorage.getCheckPoint()
+        if (!checkPoint) {
+            throw new Error('Doesnt find the checkPoint')
+        }
+        const spawnPoint = this.map.findObject('spawn-point', (obj) => obj.name === checkPoint.key)
+        this.avatar.setX(spawnPoint.x!)
+        this.avatar.setY(spawnPoint.y!)
     }
 }
