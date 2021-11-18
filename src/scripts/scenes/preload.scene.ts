@@ -34,6 +34,7 @@ export default class PreloadScene extends Phaser.Scene {
   
   create() {
     this.letterStorage.populate()
+    //this.scene.start('BackGardenScene')
     this.scene.start('BasementScene')
     //this.scene.start('StartMenuScene')
   }
