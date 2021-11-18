@@ -107,6 +107,114 @@
                  "width":0,
                  "x":80.3011292346299,
                  "y":395.884567126725
+                }, 
+                {
+                 "height":0,
+                 "id":4,
+                 "name":"wind_1",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"velocity",
+                         "type":"int",
+                         "value":100
+                        }],
+                 "rotation":0,
+                 "type":"wind",
+                 "visible":true,
+                 "width":0,
+                 "x":629.95,
+                 "y":403.914680050188
+                }, 
+                {
+                 "height":0,
+                 "id":6,
+                 "name":"wind_2",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"velocity",
+                         "type":"int",
+                         "value":100
+                        }],
+                 "rotation":0,
+                 "type":"wind",
+                 "visible":true,
+                 "width":0,
+                 "x":680.95,
+                 "y":377.41530740276
+                }, 
+                {
+                 "height":0,
+                 "id":7,
+                 "name":"wind_3",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"velocity",
+                         "type":"int",
+                         "value":150
+                        }],
+                 "rotation":0,
+                 "type":"wind",
+                 "visible":true,
+                 "width":0,
+                 "x":630.74,
+                 "y":312.96
+                }, 
+                {
+                 "height":0,
+                 "id":8,
+                 "name":"wind_4",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"velocity",
+                         "type":"int",
+                         "value":200
+                        }],
+                 "rotation":0,
+                 "type":"wind",
+                 "visible":true,
+                 "width":0,
+                 "x":622.333751568382,
+                 "y":202.1
+                }, 
+                {
+                 "height":0,
+                 "id":9,
+                 "name":"wind_5",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"velocity",
+                         "type":"int",
+                         "value":250
+                        }],
+                 "rotation":0,
+                 "type":"wind",
+                 "visible":true,
+                 "width":0,
+                 "x":625.545796737767,
+                 "y":122.09
+                }, 
+                {
+                 "height":0,
+                 "id":10,
+                 "name":"wind_6",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"velocity",
+                         "type":"int",
+                         "value":300
+                        }],
+                 "rotation":0,
+                 "type":"wind",
+                 "visible":true,
+                 "width":0,
+                 "x":629.95,
+                 "y":68.59
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -115,7 +223,7 @@
          "y":0
         }],
  "nextlayerid":7,
- "nextobjectid":4,
+ "nextobjectid":11,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",

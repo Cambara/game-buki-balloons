@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="25" height="19" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="4">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="25" height="19" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="11">
+ <editorsettings>
+  <export target="back-garden.json" format="json"/>
+ </editorsettings>
  <tileset firstgid="1" name="back-garden_32x" tilewidth="32" tileheight="32" tilecount="768" columns="48">
   <image source="back-garden_32x.png" width="1536" height="512"/>
   <tile id="0">
@@ -3310,6 +3313,42 @@
   <object id="3" name="letter_5" type="balloon" x="80.3011" y="395.885">
    <properties>
     <property name="letter" type="int" value="5"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="4" name="wind_1" type="wind" x="629.95" y="403.915">
+   <properties>
+    <property name="velocity" type="int" value="100"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="6" name="wind_2" type="wind" x="680.95" y="377.415">
+   <properties>
+    <property name="velocity" type="int" value="100"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="7" name="wind_3" type="wind" x="630.74" y="312.96">
+   <properties>
+    <property name="velocity" type="int" value="150"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="8" name="wind_4" type="wind" x="622.334" y="202.1">
+   <properties>
+    <property name="velocity" type="int" value="200"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="9" name="wind_5" type="wind" x="625.546" y="122.09">
+   <properties>
+    <property name="velocity" type="int" value="250"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="10" name="wind_6" type="wind" x="629.95" y="68.59">
+   <properties>
+    <property name="velocity" type="int" value="300"/>
    </properties>
    <point/>
   </object>
