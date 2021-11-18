@@ -4,4 +4,5 @@ export enum StagesEnum {
     BASAMENT = 'BasamentScene',
     LIVING_ROOM = 'LivingRoomScene',
     BACK_GARDEN = 'BackGardenScene',
+    SECOND_FLOOR = 'SecondFloorScene',
 }

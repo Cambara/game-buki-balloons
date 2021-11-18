@@ -64,29 +64,37 @@ export class LetterStorage {
     }
 
     const letters:LetterModal[] = [
-        {
-            id: '1',
-            lines: [
-                'more',
-                'eu te amo muito'
-            ],
-            isToDisplay: true
-        },
-        {
-            id: '2',
-            lines: [
-                'more',
-                'está é a segunda carta'
-            ],
-            isToDisplay: true
-        },
-        {
-          id: '5',
+      {
+          id: '1',
           lines: [
               'more',
-              'está é a quinta carta'
+              'eu te amo muito'
           ],
           isToDisplay: true
+      },
+      {
+          id: '2',
+          lines: [
+              'more',
+              'está é a segunda carta'
+          ],
+          isToDisplay: true
+      },
+      {
+        id: '4',
+        lines: [
+            'more',
+            'está é a quarta carta'
+        ],
+        isToDisplay: true
+      },
+      {
+        id: '5',
+        lines: [
+            'more',
+            'está é a quinta carta'
+        ],
+        isToDisplay: true
       },
     ]
     this.putLetters(letters)
