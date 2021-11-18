@@ -2,7 +2,7 @@ import Phaser from 'phaser'
 
 export default class WindNPC extends Phaser.Physics.Arcade.Sprite
 {
-
+    private velocity!:number
 	constructor(scene: Phaser.Scene, x: number, y: number, texture: string, frame?: string | number)
 	{
 		super(scene, x, y, texture, frame)
@@ -11,10 +11,9 @@ export default class WindNPC extends Phaser.Physics.Arcade.Sprite
 
     preUpdate(t:number, dt:number) {
         super.preUpdate(t, dt)
-        
-        this.setVelocityX(-100)
+        const v = this.velocity * (-1)
+        this.setVelocityX(v)
         if (this.x < -this.width) {
-            //this.destroy();
             this.x = 300
         }
     }
@@ -23,4 +22,8 @@ export default class WindNPC extends Phaser.Physics.Arcade.Sprite
 	{
 		super.destroy(fromScene)
 	}
+
+    setWindVelocity(velocity:number) {
+        this.velocity = velocity
+    }
 }

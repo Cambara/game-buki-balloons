@@ -93,6 +93,7 @@ export default class TempScene extends Phaser.Scene {
             classType: WindNPC,
             createCallback: (go) => {
                 const wind = go as WindNPC
+                wind.setWindVelocity(300)
                 wind.body.onCollide = true
             }         
         })
