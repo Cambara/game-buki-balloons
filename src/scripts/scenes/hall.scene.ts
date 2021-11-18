@@ -1,12 +1,16 @@
 import { createBukiAnim } from '../avatars/buki/buki.anim';
 import Buki from '../avatars/buki/buki.avatar';
+import { createBottleAnims } from '../items/bottle/bottle.anim';
+import BottleItem from '../items/bottle/bottle.item';
 import { AvatarStorage } from '../storage/avatar.storage';
+import { LetterStorage } from '../storage/letter.storage';
 import { StagesEnum } from './stages.enum';
 
 export default class HallScene extends Phaser.Scene {
     private cursors!: Phaser.Types.Input.Keyboard.CursorKeys
     private avatar!: Buki
     private avatarStorage:AvatarStorage
+    private letterStorage:LetterStorage
     private map:Phaser.Tilemaps.Tilemap
 
     constructor() {
@@ -14,6 +18,7 @@ export default class HallScene extends Phaser.Scene {
             key: StagesEnum.HALL
         })
         this.avatarStorage = AvatarStorage.getInstance()
+        this.letterStorage = LetterStorage.getInstance()
     }
 
     preload() {
@@ -23,6 +28,7 @@ export default class HallScene extends Phaser.Scene {
     create() {
         this.scene.run('top-menu')
         createBukiAnim(this.anims)
+        createBottleAnims(this.anims)
 
         this.map = this.make.tilemap({ key: StagesEnum.HALL })
         const tileset = this.map.addTilesetImage('hall_32x', 'hall-tiles')
@@ -58,6 +64,20 @@ export default class HallScene extends Phaser.Scene {
         const spawnGroup = this.physics.add.group()
         spawnGroup.addMultiple(recPoints)
         this.physics.add.overlap(this.avatar, spawnGroup, this.handleGoToCollision, undefined, this)
+
+        const bottles = this.physics.add.staticGroup({
+            classType: BottleItem
+        })
+        const lettersTotal = this.letterStorage.getLetters().length
+        if ( lettersTotal > 2) {    
+            bottles.get(210,360, 'bottle')
+        }
+        if ( lettersTotal > 3) {    
+            bottles.get(305,180, 'bottle')
+        }
+        
+        bottles.rotate(1)
+        this.physics.add.collider(this.avatar, bottles)
     }
 
     update() {

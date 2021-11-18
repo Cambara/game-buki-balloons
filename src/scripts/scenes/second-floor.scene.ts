@@ -1,5 +1,6 @@
 import { createBukiAnim } from '../avatars/buki/buki.anim';
 import Buki from '../avatars/buki/buki.avatar';
+import { createBallonAnims } from '../items/balloon/balloon.anim';
 import BallonItem from '../items/balloon/balloon.item';
 import { AvatarStorage } from '../storage/avatar.storage';
 import { LetterStorage } from '../storage/letter.storage';
@@ -31,6 +32,7 @@ export default class SecondFloorScene extends Phaser.Scene {
     create() {
         this.scene.run('top-menu')
         createBukiAnim(this.anims)
+        createBallonAnims(this.anims)
 
         this.map = this.make.tilemap({ key: StagesEnum.SECOND_FLOOR })
         const tileset = this.map.addTilesetImage('second-floor_32x', 'second-floor-tiles')

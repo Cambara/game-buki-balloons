@@ -1,5 +1,6 @@
 import { createBukiAnim } from '../avatars/buki/buki.anim';
 import Buki from '../avatars/buki/buki.avatar';
+import { createBallonAnims } from '../items/balloon/balloon.anim';
 import BallonItem from '../items/balloon/balloon.item';
 import { createWindAnims } from '../npcs/wind/wind.anim';
 import WindNPC from '../npcs/wind/wind.npc';
@@ -34,6 +35,7 @@ export default class BackGardenScene extends Phaser.Scene {
         this.scene.run('top-menu')
         createBukiAnim(this.anims)
         createWindAnims(this.anims)
+        createBallonAnims(this.anims)
 
         this.map = this.make.tilemap({ key: StagesEnum.BACK_GARDEN })
         const tileset = this.map.addTilesetImage('back-garden_32x', 'back-garden-tiles')

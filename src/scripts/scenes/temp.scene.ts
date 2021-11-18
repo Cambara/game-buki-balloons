@@ -3,6 +3,7 @@ import Buki from "../avatars/buki/buki.avatar";
 import { sceneEvents, sceneEventsEnum } from "../events/main.event";
 import { createBallonAnims } from "../items/balloon/balloon.anim";
 import BallonItem from "../items/balloon/balloon.item";
+import { createAnaAnims } from "../npcs/ana/ana.anim";
 import AnaNPC from "../npcs/ana/ana.npc";
 import { createWindAnims } from "../npcs/wind/wind.anim";
 import WindNPC from "../npcs/wind/wind.npc";
@@ -52,6 +53,7 @@ export default class TempScene extends Phaser.Scene {
     create() {
         this.scene.run('top-menu')
         createBukiAnim(this.anims)
+        createAnaAnims(this.anims)
         createBallonAnims(this.anims)
         createWindAnims(this.anims)
 
@@ -69,7 +71,7 @@ export default class TempScene extends Phaser.Scene {
             createCallback: (go) => {
                 const ballon = go as BallonItem
                 ballon.setBlowupSound(this.blowupSound)
-                ballon.setLetterNumber(10)
+                ballon.setLetterNumber(1)
             }
         })
 

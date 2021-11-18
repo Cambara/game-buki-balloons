@@ -1,6 +1,9 @@
 import { createBukiAnim } from '../avatars/buki/buki.anim';
 import Buki from '../avatars/buki/buki.avatar';
+import { createBallonAnims } from '../items/balloon/balloon.anim';
 import BallonItem from '../items/balloon/balloon.item';
+import { createBottleAnims } from '../items/bottle/bottle.anim';
+import BottleItem from '../items/bottle/bottle.item';
 import { AvatarStorage } from '../storage/avatar.storage';
 import { LetterStorage } from '../storage/letter.storage';
 import { StagesEnum } from './stages.enum';
@@ -31,6 +34,8 @@ export default class LivingRoomScene extends Phaser.Scene {
     create() {
         this.scene.run('top-menu')
         createBukiAnim(this.anims)
+        createBallonAnims(this.anims)
+        createBottleAnims(this.anims)
 
         this.map = this.make.tilemap({ key: StagesEnum.LIVING_ROOM })
         const tileset = this.map.addTilesetImage('living-room_32x', 'living-room-tiles')
@@ -71,6 +76,18 @@ export default class LivingRoomScene extends Phaser.Scene {
         const spawnGroup = this.physics.add.group()
         spawnGroup.addMultiple(recPoints)
         this.physics.add.overlap(this.avatar, spawnGroup, this.handleGoToCollision, undefined, this)
+
+        //Bottle logic
+        const lettersTotal = this.letterStorage.getLetters().length
+        if ( lettersTotal > 1) {
+            const bottles = this.physics.add.staticGroup({
+                classType: BottleItem
+            })
+            
+            bottles.get(330, 120, 'bottle')
+            bottles.rotate(1)
+            this.physics.add.collider(this.avatar, bottles)
+        }
 
         //Balloon logic
         const balloonPoint = this.map.findObject('spawn-point', (obj) => obj.type === 'balloon')
