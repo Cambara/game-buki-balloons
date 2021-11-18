@@ -1,8 +1,11 @@
+import { LetterStorage } from "../storage/letter.storage"
 import { StagesEnum } from "./stages.enum"
 
 export default class PreloadScene extends Phaser.Scene {
+  private letterStorage:LetterStorage
   constructor() {
     super({ key: 'PreloadScene' })
+    this.letterStorage = LetterStorage.getInstance()
   }
 
   preload() {
@@ -28,6 +31,7 @@ export default class PreloadScene extends Phaser.Scene {
   }
   
   create() {
+    this.letterStorage.populate()
     this.scene.start('BasementScene')
     //this.scene.start('StartMenuScene')
   }

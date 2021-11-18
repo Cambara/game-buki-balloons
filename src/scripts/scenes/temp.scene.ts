@@ -7,6 +7,7 @@ import AnaNPC from "../npcs/ana/ana.npc";
 import { createWindAnims } from "../npcs/wind/wind.anim";
 import WindNPC from "../npcs/wind/wind.npc";
 import { AvatarStorage } from "../storage/avatar.storage";
+import { LetterStorage } from "../storage/letter.storage";
 import TextBoxUI from "../ui/text-box.ui";
 import { StagesEnum } from "./stages.enum";
 
@@ -17,6 +18,7 @@ export default class TempScene extends Phaser.Scene {
     private blowupSound: Phaser.Sound.BaseSound
     private winds: Phaser.Physics.Arcade.Group
     private avatarStorage:AvatarStorage
+    private letterStorage:LetterStorage
 
     private scriptTexts = [
         ['oi'],
@@ -37,6 +39,7 @@ export default class TempScene extends Phaser.Scene {
             key: 'BasementScene'
         })
         this.avatarStorage = AvatarStorage.getInstance()
+        this.letterStorage = LetterStorage.getInstance()
     }
 
     preload() {
@@ -112,11 +115,11 @@ export default class TempScene extends Phaser.Scene {
                     'Buki maria, tu precisa ir atrás de outro balão!!!'
                 ]
                 if (this.avatarStorage.hasLetter()) {
-                    const letter = this.avatarStorage.getLetter();
-                    lines = [
-                        `Está é a carta ${letter}`
-                    ]
+                    const letterId = this.avatarStorage.getLetter();
+                    const letter = this.letterStorage.searchById(letterId!)
+                    lines = letter!.lines
                     this.avatarStorage.removeLetter()
+                    this.letterStorage.removeById(letterId!)
                     sceneEvents.emit(sceneEventsEnum.DESTROY_LETTER)
                 }
                 

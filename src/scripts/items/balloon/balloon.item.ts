@@ -1,17 +1,20 @@
 import Phaser from 'phaser'
 import { sceneEvents, sceneEventsEnum } from '../../events/main.event'
 import { AvatarStorage } from '../../storage/avatar.storage'
+import { LetterStorage } from '../../storage/letter.storage'
 
 export default class BallonItem extends Phaser.Physics.Arcade.Sprite
 {
     private letterNumber: number
     private blowupSound: Phaser.Sound.BaseSound
     private avatarStorage:AvatarStorage
+    private letterStorage:LetterStorage
 
 	constructor(scene: Phaser.Scene, x: number, y: number, texture: string, frame?: string | number)
 	{
 		super(scene, x, y, texture, frame)
         this.avatarStorage = AvatarStorage.getInstance()
+        this.letterStorage = LetterStorage.getInstance()
 		this.play('ballon-flight')
 	}
 
@@ -28,5 +31,6 @@ export default class BallonItem extends Phaser.Physics.Arcade.Sprite
         sceneEvents.emit(sceneEventsEnum.ADD_LETTER)
         this.play('ballon-blowedup')
         this.blowupSound.play()
+        this.letterStorage.disableById(`${this.letterNumber}`)
 	}
 }

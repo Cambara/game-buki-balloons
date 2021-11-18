@@ -1,23 +1,31 @@
 import { createBukiAnim } from '../avatars/buki/buki.anim';
 import Buki from '../avatars/buki/buki.avatar';
+import BallonItem from '../items/balloon/balloon.item';
 import { AvatarStorage } from '../storage/avatar.storage';
+import { LetterStorage } from '../storage/letter.storage';
 import { StagesEnum } from './stages.enum';
 
 export default class LivingRoomScene extends Phaser.Scene {
     private cursors!: Phaser.Types.Input.Keyboard.CursorKeys
     private avatar!: Buki
     private avatarStorage:AvatarStorage
+    private letterStorage:LetterStorage
     private map:Phaser.Tilemaps.Tilemap
+    private blowupSound: Phaser.Sound.BaseSound
 
     constructor() {
         super({
             key: StagesEnum.LIVING_ROOM
         })
         this.avatarStorage = AvatarStorage.getInstance()
+        this.letterStorage = LetterStorage.getInstance()
     }
 
     preload() {
         this.cursors = this.input.keyboard.createCursorKeys()
+        this.blowupSound = this.sound.add('balloon-blowup', {
+            volume: 100
+        })
     }
 
     create() {
@@ -63,6 +71,27 @@ export default class LivingRoomScene extends Phaser.Scene {
         const spawnGroup = this.physics.add.group()
         spawnGroup.addMultiple(recPoints)
         this.physics.add.overlap(this.avatar, spawnGroup, this.handleGoToCollision, undefined, this)
+
+        //Balloon logic
+        const balloonPoint = this.map.findObject('spawn-point', (obj) => obj.type === 'balloon')
+        const letterId = balloonPoint.properties[0].value
+        const letter = this.letterStorage.searchById(`${letterId}`)
+
+        if (!letter || !letter.isToDisplay) {
+            return
+        }
+
+        const ballons = this.physics.add.staticGroup({
+            classType: BallonItem,
+            createCallback: (go) => {
+                const ballon = go as BallonItem
+                ballon.setBlowupSound(this.blowupSound)
+                ballon.setLetterNumber(letterId)
+            }
+        })
+
+        ballons.get(balloonPoint!.x, balloonPoint!.y, 'balloon')
+        this.physics.add.collider(this.avatar, ballons, this.handleAvatarBallonCollision, undefined, this)
     }
 
     update() {
@@ -78,5 +107,10 @@ export default class LivingRoomScene extends Phaser.Scene {
             })
             this.scene.start(spawnPoint.properties[0].value);
         }
+    }
+
+    private handleAvatarBallonCollision(avatar: Phaser.GameObjects.GameObject, ballonGameObject: Phaser.GameObjects.GameObject) {
+        const ballon = ballonGameObject as BallonItem
+        this.avatar.setActiveBalloon(ballon)
     }
 }
