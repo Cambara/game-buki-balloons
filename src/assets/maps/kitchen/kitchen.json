@@ -101,6 +101,24 @@
                  "width":0,
                  "x":379.021329987453,
                  "y":469.761606022585
+                }, 
+                {
+                 "height":0,
+                 "id":3,
+                 "name":"letter_3",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"letter",
+                         "type":"int",
+                         "value":3
+                        }],
+                 "rotation":0,
+                 "type":"balloon",
+                 "visible":true,
+                 "width":0,
+                 "x":422.383939774153,
+                 "y":163.814303638645
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -109,7 +127,7 @@
          "y":0
         }],
  "nextlayerid":7,
- "nextobjectid":3,
+ "nextobjectid":4,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",
