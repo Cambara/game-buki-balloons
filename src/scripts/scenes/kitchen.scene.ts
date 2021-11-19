@@ -2,6 +2,8 @@ import { createBukiAnim } from '../avatars/buki/buki.anim';
 import Buki from '../avatars/buki/buki.avatar';
 import { createBallonAnims } from '../items/balloon/balloon.anim';
 import BallonItem from '../items/balloon/balloon.item';
+import { createBirdAnims } from '../npcs/bird/bird.anim';
+import BirdNPC, { PositionEnum } from '../npcs/bird/bird.npc';
 import { AvatarStorage } from '../storage/avatar.storage';
 import { LetterStorage } from '../storage/letter.storage';
 import { StagesEnum } from './stages.enum';
@@ -33,6 +35,7 @@ export default class KitchenScene extends Phaser.Scene {
         this.scene.run('top-menu')
         createBukiAnim(this.anims)
         createBallonAnims(this.anims)
+        createBirdAnims(this.anims)
 
         this.map = this.make.tilemap({ key: StagesEnum.KITCHEN })
         const tileset = this.map.addTilesetImage('kitchen_32x', 'kitchen-tiles')
@@ -74,6 +77,21 @@ export default class KitchenScene extends Phaser.Scene {
         spawnGroup.addMultiple(recPoints)
         this.physics.add.overlap(this.avatar, spawnGroup, this.handleGoToCollision, undefined, this)
 
+        //Bird logic
+
+        const birds = this.physics.add.group({
+            classType: BirdNPC,
+            createCallback: (go) => {
+                const bird = go as BirdNPC
+                bird.setInit(415)
+                bird.setFinish(300)
+                bird.setPositionEnum(PositionEnum.LEFT)
+            }
+        })
+
+        birds.get(425, 300)
+        this.physics.add.collider(this.avatar, birds, this.handleAvatarBirdCollision, undefined, this)
+
         //Balloon logic
         const balloonPoint = this.map.findObject('spawn-point', (obj) => obj.type === 'balloon')
         const letterId = balloonPoint.properties[0].value
@@ -114,5 +132,15 @@ export default class KitchenScene extends Phaser.Scene {
     private handleAvatarBallonCollision(avatar: Phaser.GameObjects.GameObject, ballonGameObject: Phaser.GameObjects.GameObject) {
         const ballon = ballonGameObject as BallonItem
         this.avatar.setActiveBalloon(ballon)
+    }
+
+    private handleAvatarBirdCollision(avatarObj: Phaser.GameObjects.GameObject, birdObject: Phaser.GameObjects.GameObject) {
+        const checkPoint = this.avatarStorage.getCheckPoint()
+        if (!checkPoint) {
+            throw new Error('Doesnt find the checkPoint')
+        }
+        const spawnPoint = this.map.findObject('spawn-point', (obj) => obj.name === checkPoint.key)
+        this.avatar.setX(spawnPoint.x!)
+        this.avatar.setY(spawnPoint.y!)
     }
 }

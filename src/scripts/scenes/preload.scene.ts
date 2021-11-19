@@ -33,16 +33,19 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.audio('balloon-blowup', 'assets/items/balloon/blowup.mp3')
     this.load.image('letter-icon', 'assets/items/letter/letter.jpeg')
 
-    this.load.image('buki_background', 'assets/img/buki_background_1.jpg')
+    //NPCs
     this.load.atlas('ana', 'assets/npcs/ana/texture.png', 'assets/npcs/ana/texture.json')
-    this.load.atlas('wind', 'assets/npcs/wind/texture.png', 'assets/npcs/wind/texture.json')
     this.load.image('ana_avatar', 'assets/npcs/ana/avatar.png')
+    this.load.atlas('bird', 'assets/npcs/bird/texture.png', 'assets/npcs/bird/texture.json')
+    this.load.atlas('wind', 'assets/npcs/wind/texture.png', 'assets/npcs/wind/texture.json')
+
+    this.load.image('buki_background', 'assets/img/buki_background_1.jpg')
   }
   
   create() {
     this.letterStorage.populate()
-    //this.scene.start(StagesEnum.HALL)
-    this.scene.start('BasementScene')
+    this.scene.start(StagesEnum.HALL)
+    //this.scene.start('BasementScene')
     //this.scene.start('StartMenuScene')
   }
 }
