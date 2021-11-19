@@ -1,5 +1,6 @@
 import BackGardenScene from "./scenes/back-garden.scene";
 import HallScene from "./scenes/hall.scene";
+import KitchenScene from "./scenes/kitchen.scene";
 import LivingRoomScene from "./scenes/living-room.scene";
 import PreloadScene from "./scenes/preload.scene";
 import SecondFloorScene from "./scenes/second-floor.scene";
@@ -15,5 +16,6 @@ export const scenes = [
     HallScene,
     LivingRoomScene,
     BackGardenScene,
-    SecondFloorScene
+    SecondFloorScene,
+    KitchenScene,
 ]
