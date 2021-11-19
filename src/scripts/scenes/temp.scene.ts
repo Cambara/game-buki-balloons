@@ -37,7 +37,7 @@ export default class TempScene extends Phaser.Scene {
 
     constructor() {
         super({
-            key: 'BasementScene'
+            key: 'TempScene'
         })
         this.avatarStorage = AvatarStorage.getInstance()
         this.letterStorage = LetterStorage.getInstance()

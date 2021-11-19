@@ -18,6 +18,7 @@ export default class WindNPC extends Phaser.Physics.Arcade.Sprite
 
         const v = this.velocity * (-1)
         this.setVelocityX(v)
+        this.setVelocityY(0)
         if (this.x < -this.width) {
             this.restartXValue()
         }

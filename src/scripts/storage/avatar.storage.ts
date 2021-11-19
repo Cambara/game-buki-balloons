@@ -37,4 +37,27 @@ export class AvatarStorage {
     const cP = localStorage.getItem('checkPoint')
     return cP ? JSON.parse(cP): null
   }
+
+  isStartGame():boolean {
+    const isStartGame = localStorage.getItem('isStartGame')
+
+    if (!isStartGame) {
+      localStorage.setItem('isStartGame', '1')
+    }
+    return !!isStartGame
+  }
+
+  getTutorial():string[][]  {
+    return [
+      ['oi'],
+        [
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 
+            'cursus vel est at gravida.'
+        ],
+        [
+            'Olha que agora eu quero andar',
+            'adeus!!!'
+        ]
+    ]
+  }
 }
