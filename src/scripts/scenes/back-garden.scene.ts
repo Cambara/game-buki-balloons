@@ -15,7 +15,9 @@ export default class BackGardenScene extends Phaser.Scene {
     private letterStorage:LetterStorage
     private map:Phaser.Tilemaps.Tilemap
     private blowupSound: Phaser.Sound.BaseSound
-
+    private windSound: Phaser.Sound.BaseSound
+    private bukiWalkSound: Phaser.Sound.BaseSound
+    
     constructor() {
         super({
             key: StagesEnum.BACK_GARDEN
@@ -29,6 +31,11 @@ export default class BackGardenScene extends Phaser.Scene {
         this.blowupSound = this.sound.add('balloon-blowup', {
             volume: 100
         })
+        this.windSound = this.sound.add('wind-sound', {
+            volume: 5,
+            loop: true
+        })
+        this.bukiWalkSound = this.sound.add('buki-walk')
     }
 
     create() {
@@ -36,6 +43,8 @@ export default class BackGardenScene extends Phaser.Scene {
         createBukiAnim(this.anims)
         createWindAnims(this.anims)
         createBallonAnims(this.anims)
+
+        this.windSound.play()
 
         this.map = this.make.tilemap({ key: StagesEnum.BACK_GARDEN })
         const tileset = this.map.addTilesetImage('back-garden_32x', 'back-garden-tiles')
@@ -56,7 +65,8 @@ export default class BackGardenScene extends Phaser.Scene {
             throw new Error('Doesnt find the checkPoint')
         }
         const spawnPoint = this.map.findObject('spawn-point', (obj) => obj.name === checkPoint.key)
-        this.avatar = this.add.buki(spawnPoint.x || 100, spawnPoint.y || 100, 'avatar');
+        this.avatar = this.add.buki(spawnPoint.x || 100, spawnPoint.y || 100, 'avatar')
+        this.avatar.setBukiWalkSound(this.bukiWalkSound)
 
         this.physics.add.collider(this.avatar, ground)
         this.physics.add.collider(this.avatar, wallsLayer)
@@ -125,7 +135,8 @@ export default class BackGardenScene extends Phaser.Scene {
                 key: spawnPoint.name,
                 stage: spawnPoint.properties[0].value
             })
-            this.scene.start(spawnPoint.properties[0].value);
+            this.windSound.stop()
+            this.scene.start(spawnPoint.properties[0].value)
         }
     }
 

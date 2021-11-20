@@ -26,20 +26,27 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.atlas('buki', 'assets/avatars/buki/texture.png', 'assets/avatars/buki/texture.json')
     this.load.atlas('buki-side', 'assets/avatars/buki/texture-side/texture.png', 'assets/avatars/buki/texture-side/texture.json')
     this.load.image('buki_avatar', 'assets/avatars/buki/avatar.png')
-
+    this.load.audio('buki-walk', 'assets/avatars/buki/walk_sound_5.mp3')
+    
     //Items
     this.load.atlas('bottle', 'assets/items/bottle/texture.png', 'assets/items/bottle/texture.json')
     this.load.atlas('balloon', 'assets/items/balloon/texture.png', 'assets/items/balloon/texture.json')
     this.load.audio('balloon-blowup', 'assets/items/balloon/blowup.mp3')
     this.load.image('letter-icon', 'assets/items/letter/letter.jpeg')
-
+    
     //NPCs
     this.load.atlas('ana', 'assets/npcs/ana/texture.png', 'assets/npcs/ana/texture.json')
     this.load.image('ana_avatar', 'assets/npcs/ana/avatar.png')
     this.load.atlas('bird', 'assets/npcs/bird/texture.png', 'assets/npcs/bird/texture.json')
+    this.load.audio('bird-sound', 'assets/npcs/bird/bird-sound.mp3')
     this.load.atlas('wind', 'assets/npcs/wind/texture.png', 'assets/npcs/wind/texture.json')
-
+    this.load.audio('wind-sound', 'assets/npcs/wind/wind_sound.mp3')
+    this.load.audio('wood_walk-sound', 'assets/npcs/girl/wood_walk-sound.mp3')
+    
+    
     this.load.image('buki_background', 'assets/img/buki_background_1.jpg')
+    this.load.audio('wall-clock-tick-tock-sound', 'assets/sound/wall-clock-tick-tock.mp3')
+    this.load.audio('fire-place-sound', 'assets/sound/fire-place.mp3')
   }
   
   create() {

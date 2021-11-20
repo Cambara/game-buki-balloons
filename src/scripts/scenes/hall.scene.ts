@@ -12,6 +12,8 @@ export default class HallScene extends Phaser.Scene {
     private avatarStorage:AvatarStorage
     private letterStorage:LetterStorage
     private map:Phaser.Tilemaps.Tilemap
+    private bukiWalkSound: Phaser.Sound.BaseSound
+    private clockSound: Phaser.Sound.BaseSound
 
     constructor() {
         super({
@@ -23,12 +25,18 @@ export default class HallScene extends Phaser.Scene {
 
     preload() {
         this.cursors = this.input.keyboard.createCursorKeys()
+        this.bukiWalkSound = this.sound.add('buki-walk')
+        this.clockSound = this.sound.add('wall-clock-tick-tock-sound', {
+            volume: 5,
+            loop: true
+        })
     }
 
     create() {
         this.scene.run('top-menu')
         createBukiAnim(this.anims)
         createBottleAnims(this.anims)
+        this.clockSound.play()
 
         this.map = this.make.tilemap({ key: StagesEnum.HALL })
         const tileset = this.map.addTilesetImage('hall_32x', 'hall-tiles')
@@ -48,7 +56,8 @@ export default class HallScene extends Phaser.Scene {
             throw new Error('Doesnt find the checkPoint')
         }
         const spawnPoint = this.map.findObject('spawn-point', (obj) => obj.name === checkPoint.key)
-        this.avatar = this.add.buki(spawnPoint.x || 100, spawnPoint.y || 100, 'avatar');
+        this.avatar = this.add.buki(spawnPoint.x || 100, spawnPoint.y || 100, 'avatar')
+        this.avatar.setBukiWalkSound(this.bukiWalkSound)
 
         this.physics.add.collider(this.avatar, ground)
         this.physics.add.collider(this.avatar, wallsLayer)
@@ -91,6 +100,7 @@ export default class HallScene extends Phaser.Scene {
                 key: spawnPoint.name,
                 stage: spawnPoint.properties[0].value
             })
+            this.clockSound.stop()
             this.scene.start(spawnPoint.properties[0].value);
         }
     }

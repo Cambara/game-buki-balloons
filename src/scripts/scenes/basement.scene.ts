@@ -17,6 +17,7 @@ export default class BasementScene extends Phaser.Scene {
     private letterStorage:LetterStorage
     private map:Phaser.Tilemaps.Tilemap
     private blowupSound: Phaser.Sound.BaseSound
+    private bukiWalkSound: Phaser.Sound.BaseSound
     private txtBox?:TextBoxUI
     private scriptTexts:string[][] = []
 
@@ -33,6 +34,7 @@ export default class BasementScene extends Phaser.Scene {
         this.blowupSound = this.sound.add('balloon-blowup', {
             volume: 100
         })
+        this.bukiWalkSound = this.sound.add('buki-walk')
     }
 
     create() {
@@ -59,6 +61,7 @@ export default class BasementScene extends Phaser.Scene {
         const spawnPoint = checkPoint ? this.map.findObject('spawn-point', (obj) => obj.name === checkPoint.key) : undefined
 
         this.avatar = this.add.buki(spawnPoint?.x || 300, spawnPoint?.y || 120, 'avatar');
+        this.avatar.setBukiWalkSound(this.bukiWalkSound)
 
         this.physics.add.collider(this.avatar, ground)
         this.physics.add.collider(this.avatar, wallsLayer)

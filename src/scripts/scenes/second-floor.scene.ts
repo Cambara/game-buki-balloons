@@ -13,6 +13,8 @@ export default class SecondFloorScene extends Phaser.Scene {
     private letterStorage:LetterStorage
     private map:Phaser.Tilemaps.Tilemap
     private blowupSound: Phaser.Sound.BaseSound
+    private bukiWalkSound: Phaser.Sound.BaseSound
+    private woodWalkSound: Phaser.Sound.BaseSound
 
     constructor() {
         super({
@@ -27,12 +29,18 @@ export default class SecondFloorScene extends Phaser.Scene {
         this.blowupSound = this.sound.add('balloon-blowup', {
             volume: 100
         })
+        this.bukiWalkSound = this.sound.add('buki-walk')
+        this.woodWalkSound = this.sound.add('wood_walk-sound', {
+            volume: 5,
+            loop: true
+        })
     }
 
     create() {
         this.scene.run('top-menu')
         createBukiAnim(this.anims)
         createBallonAnims(this.anims)
+        this.woodWalkSound.play()
 
         this.map = this.make.tilemap({ key: StagesEnum.SECOND_FLOOR })
         const tileset = this.map.addTilesetImage('second-floor_32x', 'second-floor-tiles')
@@ -56,7 +64,8 @@ export default class SecondFloorScene extends Phaser.Scene {
             throw new Error('Doesnt find the checkPoint')
         }
         const spawnPoint = this.map.findObject('spawn-point', (obj) => obj.name === checkPoint.key)
-        this.avatar = this.add.buki(spawnPoint.x || 100, spawnPoint.y || 100, 'avatar');
+        this.avatar = this.add.buki(spawnPoint.x || 100, spawnPoint.y || 100, 'avatar')
+        this.avatar.setBukiWalkSound(this.bukiWalkSound)
 
         this.physics.add.collider(this.avatar, ground)
         this.physics.add.collider(this.avatar, wallsLayer)
@@ -107,6 +116,7 @@ export default class SecondFloorScene extends Phaser.Scene {
                 key: spawnPoint.name,
                 stage: spawnPoint.properties[0].value
             })
+            this.woodWalkSound.stop()
             this.scene.start(spawnPoint.properties[0].value);
         }
     }

@@ -15,6 +15,9 @@ export default class Buki extends Phaser.Physics.Arcade.Sprite {
   private avatarStorage:AvatarStorage
   private activeBalloon?:BallonItem
   private anaNPC?:AnaNPC
+  private bukiWalkSound: Phaser.Sound.BaseSound
+  private isWalking:boolean = false
+  private isPlayingSound:boolean = false
 
   constructor(scene: Phaser.Scene, x: number, y: number, texture: string, frame?: string | number) {
     super(scene, x, y, texture, frame)
@@ -71,11 +74,25 @@ export default class Buki extends Phaser.Physics.Arcade.Sprite {
       parts[1] = 'idle'
       this.anims.play(parts.join('-'))
       this.setVelocity(0, 0)
+      this.isWalking = false
+      this.isPlayingSound = false
+      if (this.bukiWalkSound) {
+        this.bukiWalkSound.stop()
+      }
     }
 
     if (leftDown || rightDown || upDown || downDown) {
       this.activeBalloon = undefined
       this.anaNPC = undefined
+      this.isWalking = true
+    }
+
+    if (this.bukiWalkSound && this.isWalking && !this.isPlayingSound) {
+      this.isPlayingSound = true
+      this.bukiWalkSound.play({
+        loop: true,
+        volume: 40
+      })
     }
   }
 
@@ -90,6 +107,18 @@ export default class Buki extends Phaser.Physics.Arcade.Sprite {
   hasAnaNPC(): boolean {
     return !!this.anaNPC
   }
+
+  setBukiWalkSound(bukiWalkSound: Phaser.Sound.BaseSound) {
+    this.bukiWalkSound = bukiWalkSound
+  }
+
+  destroy(fromScene?: boolean)
+	{
+		super.destroy(fromScene)
+    if (this.bukiWalkSound) {
+      this.bukiWalkSound.stop()
+    }
+	}
 
   private destroyActiveBalloon() {
     if (!this.activeBalloon) return
