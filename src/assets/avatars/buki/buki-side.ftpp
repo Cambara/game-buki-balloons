@@ -1,0 +1,40 @@
+{
+  "meta": {
+    "version": "0.6.7"
+  },
+  "savePath": "",
+  "images": [],
+  "folders": [
+    "/home/cambara/projects/my/repositories/game-buki-balloons/src/assets/avatars/buki/bite-left",
+    "/home/cambara/projects/my/repositories/game-buki-balloons/src/assets/avatars/buki/bite-right",
+    "/home/cambara/projects/my/repositories/game-buki-balloons/src/assets/avatars/buki/walk-left",
+    "/home/cambara/projects/my/repositories/game-buki-balloons/src/assets/avatars/buki/walk-right"
+  ],
+  "packOptions": {
+    "textureName": "texture",
+    "textureFormat": "png",
+    "removeFileExtension": false,
+    "prependFolderName": true,
+    "base64Export": false,
+    "tinify": false,
+    "tinifyKey": "",
+    "scale": 1,
+    "filter": "none",
+    "exporter": "JSON (hash)",
+    "fileName": "pack-result",
+    "savePath": "",
+    "width": 32,
+    "height": 1080,
+    "fixedSize": false,
+    "powerOfTwo": false,
+    "padding": 0,
+    "extrude": 0,
+    "allowRotation": true,
+    "allowTrim": true,
+    "trimMode": "trim",
+    "alphaThreshold": "0",
+    "detectIdentical": true,
+    "packer": "MaxRectsBin",
+    "packerMethod": "BestShortSideFit"
+  }
+}

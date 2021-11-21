@@ -1,10 +1,18 @@
+import { AvatarStorage } from "../storage/avatar.storage"
+import { LetterStorage } from "../storage/letter.storage"
 import { MenuButton } from "../ui/menu.button"
+import { StagesEnum } from "./stages.enum"
 
 export default class StartMenuScene extends Phaser.Scene {
+  private letterStorage:LetterStorage
+  private avatarStorage:AvatarStorage
+  
   constructor() {
     super({
       key: 'StartMenuScene'
     })
+    this.letterStorage = LetterStorage.getInstance()
+    this.avatarStorage = AvatarStorage.getInstance()
   }
 
   create() {
@@ -30,7 +38,8 @@ export default class StartMenuScene extends Phaser.Scene {
 
     const startBtn = new MenuButton(this, middleX, middleY, 'Start game', () => {
       localStorage.clear()
-      this.scene.start('TempScene');
+      this.letterStorage.populate()
+      this.scene.start(StagesEnum.BASEMENT)
     })
 
     startBtn.setX(middleX - (startBtn.width/2))
@@ -38,6 +47,21 @@ export default class StartMenuScene extends Phaser.Scene {
     startBtn.setLabelSize(
       middleX - (startBtn.getLabelWidth()/2),
       middleY - ((startBtn.getLabelHeight()/2) - 20)
+    )
+    const checkPoint = this.avatarStorage.getCheckPoint()
+    if (!checkPoint) {
+      return;
+    }
+
+    const continueBtn = new MenuButton(this, middleX, middleY, 'Continue', () => {
+      this.scene.start(checkPoint.stage);
+    })
+
+    continueBtn.setX(middleX - (continueBtn.width/2))
+    continueBtn.setY(middleY - ((continueBtn.height/2) - 120))
+    continueBtn.setLabelSize(
+      middleX - (continueBtn.getLabelWidth()/2),
+      middleY - ((continueBtn.getLabelHeight()/2) - 120)
     )
   }
 }
