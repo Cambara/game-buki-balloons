@@ -2,6 +2,8 @@ import { createBukiAnim } from '../avatars/buki/buki.anim';
 import Buki from '../avatars/buki/buki.avatar';
 import { createBallonAnims } from '../items/balloon/balloon.anim';
 import BallonItem from '../items/balloon/balloon.item';
+import { createGirlAnims } from '../npcs/girl/girl.anim';
+import GirlNPC, { PositionEnum } from '../npcs/girl/girl.npc';
 import { AvatarStorage } from '../storage/avatar.storage';
 import { LetterStorage } from '../storage/letter.storage';
 import { StagesEnum } from './stages.enum';
@@ -39,6 +41,7 @@ export default class SecondFloorScene extends Phaser.Scene {
     create() {
         this.scene.run('top-menu')
         createBukiAnim(this.anims)
+        createGirlAnims(this.anims)
         createBallonAnims(this.anims)
         this.woodWalkSound.play()
 
@@ -83,6 +86,19 @@ export default class SecondFloorScene extends Phaser.Scene {
         spawnGroup.addMultiple(recPoints)
         this.physics.add.overlap(this.avatar, spawnGroup, this.handleGoToCollision, undefined, this)
 
+        const girls = this.physics.add.group({
+            classType: GirlNPC,
+            createCallback: (go) => {
+                const girl = go as GirlNPC
+                girl.setInit(700)
+                girl.setFinish(465)
+                girl.setPositionEnum(PositionEnum.LEFT)
+            }
+        })
+
+        girls.get(700, 240)
+        this.physics.add.collider(this.avatar, girls, this.handleAvatarGirlCollision, undefined, this)
+
         //Balloon logic
         const balloonPoint = this.map.findObject('spawn-point', (obj) => obj.type === 'balloon')
         const letterId = balloonPoint.properties[0].value
@@ -124,5 +140,15 @@ export default class SecondFloorScene extends Phaser.Scene {
     private handleAvatarBallonCollision(avatar: Phaser.GameObjects.GameObject, ballonGameObject: Phaser.GameObjects.GameObject) {
         const ballon = ballonGameObject as BallonItem
         this.avatar.setActiveBalloon(ballon)
+    }
+
+    private handleAvatarGirlCollision(avatarObj: Phaser.GameObjects.GameObject, girlObject: Phaser.GameObjects.GameObject) {
+        const checkPoint = this.avatarStorage.getCheckPoint()
+        if (!checkPoint) {
+            throw new Error('Doesnt find the checkPoint')
+        }
+        const spawnPoint = this.map.findObject('spawn-point', (obj) => obj.name === checkPoint.key)
+        this.avatar.setX(spawnPoint.x!)
+        this.avatar.setY(spawnPoint.y!)
     }
 }
