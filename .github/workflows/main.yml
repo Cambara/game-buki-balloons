@@ -25,5 +25,5 @@ jobs:
         with:
           appdir: dist
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "buki-vs-balloons"
+          heroku_app_name: "buki-app"
           heroku_email: "tiago.cambara21@gmail.com"
