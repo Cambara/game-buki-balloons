@@ -20,10 +20,9 @@ jobs:
         run: | 
           npm i
           npm run build
-      - name: check folder
-        run: cd dist & ls
       - name: Build Heroku
         uses: akhileshns/heroku-deploy@v3.12.12
+        working-directory: ./dist
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "buki-vs-balloons"
