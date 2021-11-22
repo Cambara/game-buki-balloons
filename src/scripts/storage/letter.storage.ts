@@ -67,40 +67,38 @@ export class LetterStorage {
       {
           id: '1',
           lines: [
-              'more',
-              'eu te amo muito'
+              'Não estou tão longe de onde a Buki me achaste.',
+              'Mas ande logo, pois quando menos se espera eu serei utilizada para viagens.'
           ],
           isToDisplay: true
       },
       {
           id: '2',
           lines: [
-              'more',
-              'está é a segunda carta'
+              'Sou bem grande e ocupo muito espaço, por isso acabei aqui.',
+              'Mas não se esqueça que minha posição é de destaque e sou uma maravilha.'
           ],
           isToDisplay: true
       },
       {
         id: '3',
         lines: [
-            'more',
-            'está é a terceira carta'
+          'Sou uma aquisição antiga do OLX e tenho uma história bem engraçada a respeito.'
         ],
         isToDisplay: true
       },
       {
         id: '4',
         lines: [
-            'more',
-            'está é a quarta carta'
+          'Estou em um local de grande destaque, ao pé de uma coleção gigantesca.'
         ],
         isToDisplay: true
       },
       {
         id: '5',
         lines: [
-            'more',
-            'está é a quinta carta'
+            'Tu acabaste de passar por mim, não devo ter sido muito notado.',
+            'Porém, sou muito utilizado no dia a dia.'
         ],
         isToDisplay: true
       },
