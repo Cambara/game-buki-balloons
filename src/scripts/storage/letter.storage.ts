@@ -68,7 +68,8 @@ export class LetterStorage {
           id: '1',
           lines: [
               'Não estou tão longe de onde a Buki me achaste.',
-              'Mas ande logo, pois quando menos se espera eu serei utilizada para viagens.'
+              'Mas ande logo, pois quando menos se espera eu serei',
+              'utilizada para viagens.'
           ],
           isToDisplay: true
       },
@@ -76,28 +77,32 @@ export class LetterStorage {
           id: '2',
           lines: [
               'Sou bem grande e ocupo muito espaço, por isso acabei aqui.',
-              'Mas não se esqueça que minha posição é de destaque e sou uma maravilha.'
+              'Mas não se esqueça que minha posição',
+              'é de destaque e sou uma maravilha.'
           ],
           isToDisplay: true
       },
       {
         id: '3',
         lines: [
-          'Sou uma aquisição antiga do OLX e tenho uma história bem engraçada a respeito.'
+          'Sou uma aquisição antiga do OLX',
+          'e tenho uma história bem engraçada a respeito.'
         ],
         isToDisplay: true
       },
       {
         id: '4',
         lines: [
-          'Estou em um local de grande destaque, ao pé de uma coleção gigantesca.'
+          'Estou em um local de grande destaque,',
+          'ao pé de uma coleção gigantesca.'
         ],
         isToDisplay: true
       },
       {
         id: '5',
         lines: [
-            'Tu acabaste de passar por mim, não devo ter sido muito notado.',
+            'Tu acabaste de passar por mim,',
+            'não devo ter sido muito notado.',
             'Porém, sou muito utilizado no dia a dia.'
         ],
         isToDisplay: true
