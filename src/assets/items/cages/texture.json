@@ -1,0 +1,63 @@
+{
+  "frames": {
+    "buki_cage/buki_cage.png": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 80,
+        "h": 95
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 10,
+        "y": 1,
+        "w": 80,
+        "h": 95
+      },
+      "sourceSize": {
+        "w": 96,
+        "h": 96
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "bird_cage/bird_cage.png": {
+      "frame": {
+        "x": 0,
+        "y": 95,
+        "w": 32,
+        "h": 61
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 16,
+        "y": 0,
+        "w": 32,
+        "h": 61
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 64
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    }
+  },
+  "meta": {
+    "app": "http://free-tex-packer.com",
+    "version": "0.6.7",
+    "image": "texture.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 80,
+      "h": 156
+    },
+    "scale": 1
+  }
+}

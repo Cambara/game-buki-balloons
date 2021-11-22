@@ -3,6 +3,8 @@ import Buki from '../avatars/buki/buki.avatar';
 import { sceneEvents, sceneEventsEnum } from '../events/main.event';
 import { createBallonAnims } from '../items/balloon/balloon.anim';
 import BallonItem from '../items/balloon/balloon.item';
+import { createBukiCageAnims } from '../items/buki-cage/buki-cage.anim';
+import BukiCageItem from '../items/buki-cage/buki-cage.item';
 import { createAnaAnims } from '../npcs/ana/ana.anim';
 import AnaNPC from '../npcs/ana/ana.npc';
 import { AvatarStorage } from '../storage/avatar.storage';
@@ -42,6 +44,7 @@ export default class BasementScene extends Phaser.Scene {
         createBukiAnim(this.anims)
         createBallonAnims(this.anims)
         createAnaAnims(this.anims)
+        createBukiCageAnims(this.anims)
 
         this.map = this.make.tilemap({ key: StagesEnum.BASEMENT })
         const tileset = this.map.addTilesetImage('basement_32x', 'basement-tiles')
@@ -88,8 +91,16 @@ export default class BasementScene extends Phaser.Scene {
         })
 
         anas.get(340, 100, 'ana')
-
         this.physics.add.collider(this.avatar, anas, this.handleAvatarAnaCollision, undefined, this)
+        
+        //Cage
+        const cages = this.physics.add.staticGroup({
+            classType: BukiCageItem
+        })
+        
+        cages.get(420, 80, 'cages')
+        this.physics.add.collider(this.avatar, cages)
+
 
         //Balloon logic
         const balloonPoint = this.map.findObject('spawn-point', (obj) => obj.type === 'balloon')

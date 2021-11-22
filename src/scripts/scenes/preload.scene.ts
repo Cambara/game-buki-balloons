@@ -33,13 +33,14 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.atlas('balloon', 'assets/items/balloon/texture.png', 'assets/items/balloon/texture.json')
     this.load.audio('balloon-blowup', 'assets/items/balloon/blowup.mp3')
     this.load.image('letter-icon', 'assets/items/letter/letter.jpeg')
+    this.load.atlas('cages', 'assets/items/cages/texture.png', 'assets/items/cages/texture.json')
     
     //NPCs
     this.load.atlas('ana', 'assets/npcs/ana/texture.png', 'assets/npcs/ana/texture.json')
     this.load.image('ana_avatar', 'assets/npcs/ana/avatar.png')
     this.load.atlas('girl', 'assets/npcs/girl/texture.png', 'assets/npcs/girl/texture.json')
     this.load.atlas('bird', 'assets/npcs/bird/texture.png', 'assets/npcs/bird/texture.json')
-    this.load.audio('bird-sound', 'assets/npcs/bird/bird-sound.mp3')
+    this.load.audio('bird-sound', 'assets/npcs/bird/bird-sound-2.mp3')
     this.load.atlas('wind', 'assets/npcs/wind/texture.png', 'assets/npcs/wind/texture.json')
     this.load.audio('wind-sound', 'assets/npcs/wind/wind_sound.mp3')
     this.load.audio('wood_walk-sound', 'assets/npcs/girl/wood_walk-sound.mp3')

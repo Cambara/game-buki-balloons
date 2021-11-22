@@ -2,6 +2,8 @@ import { createBukiAnim } from '../avatars/buki/buki.anim';
 import Buki from '../avatars/buki/buki.avatar';
 import { createBallonAnims } from '../items/balloon/balloon.anim';
 import BallonItem from '../items/balloon/balloon.item';
+import { createBirdCageAnims } from '../items/bird-cage/bird-cage.anim';
+import BirdCageItem from '../items/bird-cage/bird-cage.item';
 import { createBirdAnims } from '../npcs/bird/bird.anim';
 import BirdNPC, { PositionEnum } from '../npcs/bird/bird.npc';
 import { AvatarStorage } from '../storage/avatar.storage';
@@ -43,6 +45,7 @@ export default class KitchenScene extends Phaser.Scene {
         createBukiAnim(this.anims)
         createBallonAnims(this.anims)
         createBirdAnims(this.anims)
+        createBirdCageAnims(this.anims)
         this.birdSound.play()
 
         this.map = this.make.tilemap({ key: StagesEnum.KITCHEN })
@@ -86,8 +89,16 @@ export default class KitchenScene extends Phaser.Scene {
         spawnGroup.addMultiple(recPoints)
         this.physics.add.overlap(this.avatar, spawnGroup, this.handleGoToCollision, undefined, this)
 
-        //Bird logic
+        //Bird cage
+        const cages = this.physics.add.staticGroup({
+            classType: BirdCageItem
+        })
+        
+        cages.get(320, 180, 'cages')
+        cages.rotate(1)
+        this.physics.add.collider(this.avatar, cages)
 
+        //Bird logic
         const birds = this.physics.add.group({
             classType: BirdNPC,
             createCallback: (go) => {
