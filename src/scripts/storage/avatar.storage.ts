@@ -49,15 +49,20 @@ export class AvatarStorage {
 
   getTutorial():string[][]  {
     return [
-      ['oi'],
-        [
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 
-            'cursus vel est at gravida.'
-        ],
-        [
-            'Olha que agora eu quero andar',
-            'adeus!!!'
-        ]
+      [
+        'Buuuuuki',
+        'Eu estou a precisar de uma ajudinha sua...',
+      ],
+      [
+        'O damo espalhou balões pela casa com cartinhas dentro.',
+        'E tu precisas estourar os balões e me trazer elas,',
+        'pois só assim eu consigo receber as minhas prendas.'
+      ],
+      [
+        'Eu sei que tem um balão aqui no porão, comece já por ele.',
+        'Boa sorte minha princesa megalona e ',
+        'cuidado pois a casa está cheia de desafios.'
+      ]
     ]
   }
 }
