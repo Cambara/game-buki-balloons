@@ -10,7 +10,7 @@ FROM nginx
 
 WORKDIR /app
 
-COPY --from=ui-build /app/dist .
+COPY --from=ui-build /app/dist /usr/share/nginx/html
 
 EXPOSE 80
 EXPOSE 443

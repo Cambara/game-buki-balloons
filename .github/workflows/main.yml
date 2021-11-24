@@ -11,22 +11,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Node
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14.x  
-      - name: Build the typscript
-        run: | 
-          npm i
-          npm run build
-      - name: Create index file
-        run: echo "<?php include_once("index.html"); ?>" > dist/index.php
-      - name: Check new File
-        run: ls dist
       - name: Build Heroku
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "buki-app"
           heroku_email: "tiago.cambara21@gmail.com"
+          usedocker: true
